@@ -1,0 +1,53 @@
+#!/bin/bash
+
+#####
+# Shell script to display a git cheat sheet with
+# commonly used git commands.
+#####
+
+OUTPUT="\n\
+For add'l info: https://git-scm.com/docs\n\
+\n\
+STARTING A PROJECT\n\
+git init  -- initialize git in the current directory\n\
+git init [project] -- create a new {project} directory and initialize git in it\n\
+\n\
+IGNORE FILES (from project bse directory)\n\
+cat .gitignore -- view the files being ignored\n\
+echo -e \"\\\nfilename1\\\nfilename2\" >> .gitignore -- add file(s) to be ignored\n\
+\n\
+WORKFLOW TASKS\n\
+git status -- view project status\n\
+git diff [file] -- show changes between work area and staged area\n\
+git diff --staged [file] -- show changes between staged area and committed area\n\
+git checkout -- [file] -- reset all files (or just [file] if provided) in the branch\n\
+git add [file] -- add [file] to the staging area\n\
+git add . -- add all modified files to the staging area\n\
+git reset [file] -- replace [file] in the working area with the version in the staging area\n\
+git commit -m \"OP-12345 - commit message\" -- commit changes from the staging area to the branch\n\
+git rm [file] -- remove the file from the working area and mark as deleted in the staging area\n\
+git stash -- put current changes into a stash\n\
+git stash pop -- apply stored stash content into the working area and clear the stash\n\
+git stash drop -- clear stash without applying\n\
+\n\
+BRANCHING\n\
+git branch [-a] -- list local branches, or (-a) all branches with remote\n\
+git branch {name} -- create a new branch\n\
+git checkout [-b] {name} -- checkout (create with -b) the branch\n\
+git merge {source branch} -- join changes from {source branch} into current branch\n\
+git branch -d {branch} -- delete the branch\n\
+\n\
+REVIEW\n\
+git log [-n {count}] -- shows last {count} commits in the current branch\n\
+git log --oneline --graph --decorate -- commit overview of current branch\n\
+git log {branch/tag} .. -- list commits in current branch not merged into {branch/tag}\n\
+git log .. {branch/tag} -- list commits in {branch/tag} not merged into current branch\n\
+git reflog -- list operations that have been made on the current local repo\n\
+\n\
+SYNCING REPOSITORIES\n\
+git fetch origin -- pull files from origin for the current branch\n\
+git fetch --prune origin -- remove remote refs that were removed from the remote repo\n\
+git pull -- pull changed files from the remote repo and merge into current branch\n\
+git push -- push local changes to remote repo\n\n"
+
+echo -e $OUTPUT

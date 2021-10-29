@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#####
+# This cleans out the hummingbird project's compiled stuff that eclipse may refuse to clean up.
+#####
+
+pushd ~/dev/hummingbird
+find . -iname .apt* -exec rm -rf {} +
+find . -iname test-classes -exec rm -rf {} +
+find . -iname gwtproject -exec rm -rf {} +
+find . -iname classes -exec rm -rf {} +
+find . -iname deploy -exec rm -rf {} +
+find . -iname gwt-unit* -exec rm -rf {} +
+find . -iname *.class -exec rm -rf {} +
+popd
+

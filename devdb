@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# To stand up the database container for various environments
+
+function usage() {
+  printf "usage: devdb {app} {up|dn|down} \n\
+    Where {app} is one of:\n\
+      sched, scheduler, sched-server, scheduler-server\n\
+      med-history, med\n\
+      mar, mar-server\n\
+      local\n\
+      pim\n\
+      redis\n\n";
+  exit 1;
+}
+
+APP=$1
+UPDN=$2
+TARGETDIR=
+ACTION=
+APPNAME=
+FILENAME=
+
+# if a host is provided in the command, send a curl request passing the token
+if [[ -z "$APP" || -c "$UPDN" ]]; then
+  echo "The app or action were not provided"
+  usage;
+else
+  case $APP in
+    sched|scheduler|sched-server|scheduler-server) APPNAME="Scheduler Server"; TARGETDIR="/users/g.hesla/dev/scheduler-server"; FILENAME="src/main/resources/scheduler-db/scheduler-database.yml";;
+    med-history|med) APPNAME="Medication History"; TARGETDIR="/users/g.hesla/dev/med-history"; FILENAME="src/main/docker/mongodb.yml";;
+    mar|mar-server) APPNAME="MAR Server"; TARGETDIR="/users/g.hesla/dev/mar-server"; FILENAME="src/main/resources/db/mar-server-database-docker.yml";;
+    local) APPNAME="Local PostgreSQL Server"; TARGETDIR="/users/g.hesla/dev/dockers"; FILENAME="postgresql-local.yaml";;
+    pim) APPNAME="Local PIM PostgreSQL Server"; TARGETDIR="/users/g.hesla/dev/dockers"; FILENAME="postgresql-pim-local.yaml";;
+    redis) APPNAME="Local Redis"; TARGETDIR="/users/g.hesla/dev/dockers"; FILENAME="redis.yaml";;
+  esac
+fi
+
+if [[ -z "$TARGETDIR" || -c "$COMMAND" ]]; then
+  echo "A command was not configured for $APP"
+  usage;
+fi
+
+if [[ -z "$UPDN" ]]; then
+  echo "An action (up, dn, down) must be provided"
+  usage;
+else
+  case $UPDN in
+    up) ACTION="Starting"; COMMAND="up -d";;
+    dn|down) ACTION="Stopping"; COMMAND="down";;
+  esac
+fi
+
+echo "${ACTION} ${APPNAME} database container..."
+echo "docker-compose -f ${FILENAME} -p '${APPNAME}' $COMMAND"
+
+pushd $TARGETDIR
+docker-compose -f ${FILENAME} -p "${APPNAME}" ${COMMAND}
+popd
+
+echo "done"
