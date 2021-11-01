@@ -56,3 +56,13 @@ Alias to perform a git merge from a branch with the pattern stories/{xxx}/story
 *~Greg Hesla*
 
 Convenience script for querying mumms databases.
+
+## QueryTenants.sh
+*~Greg Hesla*
+
+Run a sql query against all tenant databases.
+
+For ease of use, this is symlinked to `/usr/local/bin/queryTenants` for global access
+```
+ln -hsf /Users/g.hesla/bin/QueryTenants.sh /usr/local/bin/queryTenants
+```
