@@ -1,0 +1,736 @@
+bin  = 
+roothost = prod-gce-dw-1.mumms.com
+No bin provided, will run for all ACTIVE hospices
+select dbhost as dbhostvar, dbname as dbnamevar from hospice where status = 'ACTIVE' order by bin;
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_allsaints
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | office_aud          |     122871808 |        49152 |        8192 |             0 | 117 MB     | 11 MB        | 129 MB
+ bi           | questionnaire_dfact |      30588928 |        24576 |        8192 |             0 | 29 MB      | 89 MB        | 118 MB
+ bi           | date_dim            |      56238080 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 111 MB
+ bi           | patientvisit_dfact  |      38567936 |        32768 |        8192 |             0 | 37 MB      | 60 MB        | 97 MB
+ bi           | response_fact       |      34521088 |        32768 |        8192 |             0 | 33 MB      | 53 MB        | 86 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_americare
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud   |    1876934656 |            0 |           0 |             0 | 1790 MB    | 338 MB       | 2128 MB
+ public       | revinfo            |     517275648 |       147456 |        8192 |             0 | 493 MB     | 250 MB       | 744 MB
+ bi           | response_fact      |     216842240 |        73728 |        8192 |             0 | 207 MB     | 268 MB       | 475 MB
+ bi           | patientvisit_dfact |     175144960 |        65536 |        8192 |             0 | 167 MB     | 243 MB       | 410 MB
+ public       | patientinteraction |      79921152 |        40960 |        8192 |             0 | 76 MB      | 179 MB       | 255 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_aplushosp
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     335577088 |            0 |           0 |             0 | 320 MB     | 55 MB        | 375 MB
+ bi           | questionnaire_dfact    |      77111296 |        40960 |        8192 |             0 | 74 MB      | 224 MB       | 297 MB
+ public       | patientinteraction_aud |     184483840 |        65536 |        8192 |             0 | 176 MB     | 56 MB        | 232 MB
+ bi           | response_fact          |      68567040 |        40960 |        8192 |             0 | 65 MB      | 101 MB       | 166 MB
+ bi           | patientvisit_dfact     |      61784064 |        32768 |        8192 |             0 | 59 MB      | 96 MB        | 155 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_bell
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      72474624 |        40960 |        8192 |             0 | 69 MB      | 209 MB       | 278 MB
+ public       | patientvisit_aud    |     166264832 |            0 |           0 |             0 | 159 MB     | 29 MB        | 187 MB
+ bi           | response_fact       |      60891136 |        32768 |        8192 |             0 | 58 MB      | 83 MB        | 141 MB
+ bi           | date_dim            |      56074240 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ bi           | patientvisit_dfact  |      41738240 |        32768 |        8192 |             0 | 40 MB      | 60 MB        | 100 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_besthospic
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | response_fact       |     148742144 |        57344 |        8192 |             0 | 142 MB     | 231 MB       | 373 MB
+ bi           | questionnaire_dfact |      72212480 |        40960 |        8192 |             0 | 69 MB      | 205 MB       | 274 MB
+ bi           | patientvisit_dfact  |      91807744 |        40960 |        8192 |             0 | 88 MB      | 139 MB       | 226 MB
+ public       | office_aud          |     165175296 |        57344 |        8192 |             0 | 158 MB     | 13 MB        | 171 MB
+ public       | clinical_data       |        106496 |        24576 |        8192 |             0 | 111 MB     | 112 kB       | 111 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_bway
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | patientvisit_dfact  |     240254976 |        81920 |        8192 |             0 | 229 MB     | 364 MB       | 593 MB
+ bi           | questionnaire_dfact |     131252224 |        49152 |        8192 |             0 | 125 MB     | 374 MB       | 500 MB
+ bi           | response_fact       |     146456576 |        57344 |        8192 |             0 | 140 MB     | 223 MB       | 363 MB
+ bi           | claimdetail_fact    |     132079616 |        49152 |        8192 |             0 | 126 MB     | 155 MB       | 281 MB
+ public       | clinical_data       |        270336 |        24576 |        8192 |             0 | 221 MB     | 160 kB       | 221 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_canton2
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim           |      56221696 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 110 MB
+ bi           | claimdetail_fact   |      37306368 |        32768 |        8192 |             0 | 36 MB      | 45 MB        | 81 MB
+ pg_catalog   | pg_statistic       |      33226752 |        24576 |        8192 |             0 | 33 MB      | 2040 kB      | 35 MB
+ bi           | patientvisit_dfact |      12525568 |        24576 |        8192 |             0 | 12 MB      | 22 MB        | 34 MB
+ pg_catalog   | pg_shdepend        |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_cap
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | clinical_data       |       4161536 |            0 |           0 |             0 | 5416 MB    | 1104 kB      | 5417 MB
+ bi           | questionnaire_dfact |    1826398208 |            0 |           0 |             0 | 1742 MB    | 3634 MB      | 5376 MB
+ bi           | patientvisit_dfact  |    1672355840 |            0 |           0 |             0 | 1595 MB    | 2104 MB      | 3699 MB
+ bi           | response_fact       |    1729896448 |            0 |           0 |             0 | 1653 MB    | 1990 MB      | 3643 MB
+ public       | patient_aud         |    3287285760 |       827392 |           0 |             0 | 3152 MB    | 322 MB       | 3474 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_carepeople
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim            |      56115200 |        32768 |        8192 |             0 | 54 MB      | 56 MB        | 110 MB
+ public       | office_aud          |      56492032 |        32768 |        8192 |             0 | 54 MB      | 4944 kB      | 59 MB
+ pg_catalog   | pg_shdepend         |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_statistic        |      27344896 |        24576 |        8192 |             0 | 27 MB      | 2128 kB      | 29 MB
+ bi           | questionnaire_dfact |       5062656 |        24576 |        8192 |             0 | 4984 kB    | 15 MB        | 20 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_catawba
+ table_schema |        table_name        | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | claimdetail_fact         |     146145280 |        57344 |        8192 |             0 | 139 MB     | 170 MB       | 310 MB
+ public       | clinical_data            |        409600 |        24576 |        8192 |             0 | 282 MB     | 112 kB       | 282 MB
+ bi           | patientvisit_dfact       |     102006784 |        49152 |        8192 |             0 | 97 MB      | 161 MB       | 258 MB
+ bi           | patientdayofservice_fact |      94208000 |        40960 |        8192 |             0 | 90 MB      | 128 MB       | 218 MB
+ public       | office_aud               |     195297280 |        65536 |        8192 |             0 | 186 MB     | 21 MB        | 207 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_cayman
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim            |      56057856 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ pg_catalog   | pg_shdepend         |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ bi           | questionnaire_dfact |       5021696 |        24576 |        8192 |             0 | 4944 kB    | 16 MB        | 21 MB
+ etl          | diagmap             |      16113664 |        24576 |        8192 |             0 | 15 MB      | 2088 kB      | 17 MB
+ pg_catalog   | pg_class            |       8626176 |        24576 |        8192 |             0 | 8456 kB    | 5112 kB      | 13 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_cchh
+ table_schema |        table_name        | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | claimdetail_fact         |      50601984 |        32768 |        8192 |             0 | 48 MB      | 66 MB        | 115 MB
+ bi           | date_dim                 |      56238080 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 111 MB
+ pg_catalog   | pg_statistic             |      42082304 |        32768 |        8192 |             0 | 42 MB      | 2232 kB      | 44 MB
+ pg_catalog   | pg_attribute             |       9469952 |        24576 |        8192 |             0 | 9280 kB    | 30 MB        | 39 MB
+ bi           | patientdayofservice_fact |      16547840 |        24576 |        8192 |             0 | 16 MB      | 23 MB        | 38 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_chatt
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      49537024 |        32768 |        8192 |             0 | 47 MB      | 149 MB       | 196 MB
+ bi           | date_dim            |      56041472 |        32768 |        8192 |             0 | 53 MB      | 54 MB        | 108 MB
+ bi           | response_fact       |      32661504 |        24576 |        8192 |             0 | 31 MB      | 47 MB        | 78 MB
+ bi           | patientvisit_dfact  |      27754496 |        24576 |        8192 |             0 | 27 MB      | 40 MB        | 67 MB
+ pg_catalog   | pg_statistic        |      48611328 |        32768 |        8192 |             0 | 48 MB      | 4008 kB      | 52 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_circ
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     460718080 |            0 |           0 |             0 | 439 MB     | 78 MB        | 518 MB
+ bi           | questionnaire_dfact    |      94183424 |        40960 |        8192 |             0 | 90 MB      | 274 MB       | 364 MB
+ public       | patientinteraction_aud |     229810176 |        73728 |        8192 |             0 | 219 MB     | 70 MB        | 289 MB
+ bi           | patientvisit_dfact     |      90234880 |        40960 |        8192 |             0 | 86 MB      | 139 MB       | 225 MB
+ bi           | response_fact          |      82862080 |        40960 |        8192 |             0 | 79 MB      | 115 MB       | 194 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_clay
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      52486144 |        32768 |        8192 |             0 | 50 MB      | 151 MB       | 201 MB
+ public       | patientvisit_aud    |     111337472 |            0 |           0 |             0 | 106 MB     | 20 MB        | 126 MB
+ bi           | date_dim            |      56082432 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 109 MB
+ bi           | response_fact       |      38010880 |        32768 |        8192 |             0 | 36 MB      | 54 MB        | 90 MB
+ bi           | patientvisit_dfact  |      32833536 |        24576 |        8192 |             0 | 31 MB      | 49 MB        | 80 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_commcare
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | response_fact       |     443498496 |       131072 |        8192 |             0 | 423 MB     | 630 MB       | 1053 MB
+ bi           | questionnaire_dfact |     237150208 |        81920 |        8192 |             0 | 226 MB     | 674 MB       | 900 MB
+ bi           | patientvisit_dfact  |     166461440 |        57344 |        8192 |             0 | 159 MB     | 237 MB       | 396 MB
+ public       | patientvisit_aud    |     187727872 |            0 |           0 |             0 | 179 MB     | 32 MB        | 211 MB
+ bi           | claimdetail_fact    |      64053248 |        32768 |        8192 |             0 | 61 MB      | 88 MB        | 149 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_corva
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |     112320512 |        49152 |        8192 |             0 | 107 MB     | 344 MB       | 451 MB
+ bi           | patientvisit_dfact  |     126320640 |        49152 |        8192 |             0 | 121 MB     | 170 MB       | 291 MB
+ bi           | response_fact       |      73031680 |        40960 |        8192 |             0 | 70 MB      | 98 MB        | 168 MB
+ bi           | date_dim            |      56041472 |        32768 |        8192 |             0 | 53 MB      | 54 MB        | 108 MB
+ public       | patientinteraction  |      27992064 |        24576 |        8192 |             0 | 27 MB      | 78 MB        | 104 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_crhdelhi
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      30072832 |        24576 |        8192 |             0 | 29 MB      | 94 MB        | 123 MB
+ bi           | date_dim            |      56057856 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ public       | patientvisit_aud    |      68599808 |            0 |           0 |             0 | 65 MB      | 12 MB        | 77 MB
+ bi           | response_fact       |      32595968 |        24576 |        8192 |             0 | 31 MB      | 46 MB        | 77 MB
+ bi           | patientvisit_dfact  |      19775488 |        24576 |        8192 |             0 | 19 MB      | 30 MB        | 49 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_demo1
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_rewrite   |        147456 |        24576 |        8192 |             0 | 8832 kB    | 48 kB        | 8880 kB
+ pg_catalog   | pg_attribute |       4710400 |        24576 |        8192 |             0 | 4632 kB    | 1880 kB      | 6512 kB
+ pg_catalog   | pg_depend    |       1835008 |        24576 |        8192 |             0 | 1824 kB    | 2888 kB      | 4712 kB
+ pg_catalog   | pg_proc      |        999424 |        24576 |        8192 |             0 | 2560 kB    | 376 kB       | 2936 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_demo2
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_rewrite   |        147456 |        24576 |        8192 |             0 | 8840 kB    | 48 kB        | 8888 kB
+ pg_catalog   | pg_attribute |       4702208 |        24576 |        8192 |             0 | 4624 kB    | 1928 kB      | 6552 kB
+ pg_catalog   | pg_depend    |       1835008 |        24576 |        8192 |             0 | 1824 kB    | 2880 kB      | 4704 kB
+ pg_catalog   | pg_proc      |        974848 |        24576 |        8192 |             0 | 2520 kB    | 376 kB       | 2896 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_eternal
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | response_fact       |     107347968 |        49152 |        8192 |             0 | 102 MB     | 135 MB       | 238 MB
+ bi           | questionnaire_dfact |      52469760 |        32768 |        8192 |             0 | 50 MB      | 162 MB       | 212 MB
+ bi           | patientvisit_dfact  |      78225408 |        40960 |        8192 |             0 | 75 MB      | 109 MB       | 183 MB
+ public       | patientinteraction  |      29736960 |        24576 |        8192 |             0 | 28 MB      | 99 MB        | 128 MB
+ public       | clinical_data       |        147456 |        24576 |        8192 |             0 | 112 MB     | 64 kB        | 112 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_familycom
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      89710592 |        40960 |        8192 |             0 | 86 MB      | 260 MB       | 346 MB
+ public       | patientvisit_aud    |     271966208 |            0 |           0 |             0 | 259 MB     | 48 MB        | 307 MB
+ bi           | response_fact       |     113049600 |        49152 |        8192 |             0 | 108 MB     | 153 MB       | 261 MB
+ bi           | patientvisit_dfact  |      69238784 |        40960 |        8192 |             0 | 66 MB      | 99 MB        | 165 MB
+ public       | revinfo             |      81739776 |        40960 |        8192 |             0 | 78 MB      | 40 MB        | 118 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_foch
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     228081664 |            0 |           0 |             0 | 218 MB     | 39 MB        | 257 MB
+ bi           | questionnaire_dfact    |      42393600 |        32768 |        8192 |             0 | 40 MB      | 123 MB       | 163 MB
+ public       | patientinteraction_aud |     101171200 |        49152 |        8192 |             0 | 97 MB      | 32 MB        | 129 MB
+ bi           | date_dim               |      56172544 |        32768 |        8192 |             0 | 54 MB      | 56 MB        | 110 MB
+ public       | revinfo                |      69156864 |        40960 |        8192 |             0 | 66 MB      | 33 MB        | 99 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_goodsam
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |     221741056 |        73728 |        8192 |             0 | 212 MB     | 640 MB       | 852 MB
+ bi           | response_fact       |     200646656 |        73728 |        8192 |             0 | 192 MB     | 274 MB       | 465 MB
+ public       | clinical_data       |        786432 |        24576 |        8192 |             0 | 398 MB     | 256 kB       | 399 MB
+ bi           | patientvisit_dfact  |     160571392 |        57344 |        8192 |             0 | 153 MB     | 222 MB       | 375 MB
+ public       | patient_aud         |     258359296 |        81920 |           0 |             0 | 246 MB     | 30 MB        | 277 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_goodwin
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     321880064 |            0 |           0 |             0 | 307 MB     | 55 MB        | 362 MB
+ bi           | questionnaire_dfact    |      71409664 |        40960 |        8192 |             0 | 68 MB      | 208 MB       | 276 MB
+ bi           | patientvisit_dfact     |      77963264 |        40960 |        8192 |             0 | 74 MB      | 116 MB       | 191 MB
+ bi           | response_fact          |      62513152 |        32768 |        8192 |             0 | 60 MB      | 92 MB        | 152 MB
+ public       | patientinteraction_aud |     106455040 |        49152 |        8192 |             0 | 102 MB     | 33 MB        | 134 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_goshe
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |    1344339968 |       352256 |       24576 |             0 | 1282 MB    | 3969 MB      | 5252 MB
+ bi           | response_fact       |    1573797888 |       409600 |       24576 |             0 | 1501 MB    | 2167 MB      | 3668 MB
+ bi           | patientvisit_dfact  |    1555021824 |       401408 |       24576 |             0 | 1483 MB    | 2177 MB      | 3661 MB
+ bi           | claimdetail_fact    |     506871808 |       147456 |        8192 |             0 | 484 MB     | 692 MB       | 1175 MB
+ public       | patientinteraction  |     242950144 |        81920 |        8192 |             0 | 232 MB     | 527 MB       | 759 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_gracech
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      74162176 |        40960 |        8192 |             0 | 71 MB      | 224 MB       | 294 MB
+ bi           | response_fact       |      53338112 |        32768 |        8192 |             0 | 51 MB      | 76 MB        | 127 MB
+ bi           | patientvisit_dfact  |      51617792 |        32768 |        8192 |             0 | 49 MB      | 77 MB        | 126 MB
+ bi           | date_dim            |      56049664 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ public       | patientinteraction  |      15671296 |        24576 |        8192 |             0 | 15 MB      | 49 MB        | 64 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_gracepr
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      76103680 |        40960 |        8192 |             0 | 73 MB      | 223 MB       | 296 MB
+ bi           | date_dim            |      56025088 |        32768 |        8192 |             0 | 53 MB      | 54 MB        | 108 MB
+ bi           | response_fact       |      42074112 |        32768 |        8192 |             0 | 40 MB      | 55 MB        | 95 MB
+ bi           | patientvisit_dfact  |      25976832 |        24576 |        8192 |             0 | 25 MB      | 38 MB        | 63 MB
+ bi           | claimdetail_fact    |      15949824 |        24576 |        8192 |             0 | 15 MB      | 23 MB        | 38 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_greenw
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      87277568 |        40960 |        8192 |             0 | 83 MB      | 251 MB       | 335 MB
+ bi           | claimdetail_fact    |     127606784 |        49152 |        8192 |             0 | 122 MB     | 168 MB       | 290 MB
+ bi           | response_fact       |     132636672 |        49152 |        8192 |             0 | 127 MB     | 162 MB       | 289 MB
+ bi           | patientvisit_dfact  |     107380736 |        49152 |        8192 |             0 | 102 MB     | 146 MB       | 248 MB
+ public       | patientinteraction  |      52166656 |        32768 |        8192 |             0 | 50 MB      | 134 MB       | 184 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_haydel
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     363233280 |            0 |           0 |             0 | 346 MB     | 59 MB        | 406 MB
+ bi           | questionnaire_dfact    |      59588608 |        32768 |        8192 |             0 | 57 MB      | 175 MB       | 232 MB
+ public       | patientinteraction_aud |     180494336 |        65536 |        8192 |             0 | 172 MB     | 57 MB        | 229 MB
+ bi           | claimdetail_fact       |      80732160 |        40960 |        8192 |             0 | 77 MB      | 97 MB        | 174 MB
+ public       | revinfo                |      99098624 |        40960 |        8192 |             0 | 95 MB      | 48 MB        | 143 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_hcc
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      63209472 |        32768 |        8192 |             0 | 60 MB      | 186 MB       | 246 MB
+ bi           | response_fact       |      67362816 |        40960 |        8192 |             0 | 64 MB      | 86 MB        | 150 MB
+ bi           | date_dim            |      56074240 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ bi           | patientvisit_dfact  |      43073536 |        32768 |        8192 |             0 | 41 MB      | 63 MB        | 104 MB
+ bi           | claimdetail_fact    |      44130304 |        32768 |        8192 |             0 | 42 MB      | 58 MB        | 100 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_hcmid
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     384032768 |            0 |           0 |             0 | 366 MB     | 65 MB        | 431 MB
+ bi           | questionnaire_dfact    |      52723712 |        32768 |        8192 |             0 | 50 MB      | 153 MB       | 203 MB
+ public       | patientinteraction_aud |     138297344 |        57344 |        8192 |             0 | 132 MB     | 44 MB        | 176 MB
+ public       | revinfo                |     115769344 |        49152 |        8192 |             0 | 110 MB     | 56 MB        | 166 MB
+ bi           | response_fact          |      62242816 |        32768 |        8192 |             0 | 59 MB      | 84 MB        | 144 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_hh
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | patientvisit_dfact  |     127942656 |        49152 |        8192 |             0 | 122 MB     | 181 MB       | 303 MB
+ bi           | questionnaire_dfact |      67878912 |        40960 |        8192 |             0 | 65 MB      | 199 MB       | 264 MB
+ public       | patientvisit_aud    |     227975168 |            0 |           0 |             0 | 217 MB     | 40 MB        | 257 MB
+ bi           | response_fact       |     101359616 |        49152 |        8192 |             0 | 97 MB      | 128 MB       | 225 MB
+ public       | patientinteraction  |      52150272 |        32768 |        8192 |             0 | 50 MB      | 116 MB       | 166 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_hhcsys
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | revinfo            |     803299328 |       221184 |           0 |             0 | 766 MB     | 389 MB       | 1155 MB
+ public       | claim_prebill      |     862502912 |       229376 |       16384 |             0 | 835 MB     | 19 MB        | 854 MB
+ bi           | patientvisit_dfact |     287965184 |        90112 |        8192 |             0 | 275 MB     | 470 MB       | 745 MB
+ public       | claimbatch_gen     |      12214272 |        24576 |        8192 |             0 | 709 MB     | 1080 kB      | 710 MB
+ bi           | claimdetail_fact   |     225984512 |            0 |           0 |             0 | 216 MB     | 247 MB       | 462 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_hillcross
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim            |      56049664 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ bi           | questionnaire_dfact |      13451264 |        24576 |        8192 |             0 | 13 MB      | 41 MB        | 53 MB
+ bi           | response_fact       |      19439616 |        24576 |        8192 |             0 | 19 MB      | 29 MB        | 47 MB
+ public       | clinical_data       |         32768 |        24576 |        8192 |             0 | 38 MB      | 32 kB        | 38 MB
+ pg_catalog   | pg_shdepend         |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_holycross
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | office_aud   |     111312896 |        49152 |        8192 |             0 | 106 MB     | 13 MB        | 119 MB
+ bi           | date_dim     |      56238080 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 111 MB
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ public       | revinfo      |      20488192 |        24576 |        8192 |             0 | 20 MB      | 10168 kB     | 30 MB
+ pg_catalog   | pg_statistic |      22306816 |        24576 |        8192 |             0 | 22 MB      | 2192 kB      | 25 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_hospscot
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud    |    1493458944 |       385024 |           0 |             0 | 1425 MB    | 259 MB       | 1684 MB
+ bi           | patientvisit_dfact  |     310296576 |        98304 |        8192 |             0 | 296 MB     | 441 MB       | 737 MB
+ public       | revinfo             |     408117248 |       122880 |        8192 |             0 | 389 MB     | 197 MB       | 587 MB
+ bi           | response_fact       |     193257472 |        65536 |        8192 |             0 | 186 MB     | 252 MB       | 438 MB
+ bi           | questionnaire_dfact |     105521152 |        49152 |        8192 |             0 | 101 MB     | 310 MB       | 411 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_ipr
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim     |      56082432 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ public       | office_aud   |      20471808 |        24576 |        8192 |             0 | 20 MB      | 2392 kB      | 22 MB
+ pg_catalog   | pg_attribute |       6914048 |        24576 |        8192 |             0 | 6784 kB    | 12 MB        | 18 MB
+ pg_catalog   | pg_statistic |      16089088 |        24576 |        8192 |             0 | 17 MB      | 1336 kB      | 18 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_king
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | revinfo             |     742383616 |       204800 |       16384 |             0 | 708 MB     | 359 MB       | 1068 MB
+ bi           | questionnaire_dfact |     246022144 |        81920 |        8192 |             0 | 235 MB     | 715 MB       | 950 MB
+ bi           | response_fact       |     288628736 |        90112 |        8192 |             0 | 275 MB     | 376 MB       | 651 MB
+ public       | claim_prebill       |     644538368 |       180224 |       16384 |             0 | 630 MB     | 10 MB        | 640 MB
+ public       | claimbatch_gen      |       8331264 |        24576 |        8192 |             0 | 507 MB     | 504 kB       | 508 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_legacybob
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |     870481920 |       237568 |       16384 |             0 | 830 MB     | 2606 MB      | 3437 MB
+ bi           | response_fact       |     677650432 |       188416 |       16384 |             0 | 647 MB     | 971 MB       | 1617 MB
+ bi           | patientvisit_dfact  |     591077376 |       163840 |       16384 |             0 | 564 MB     | 806 MB       | 1370 MB
+ public       | patientvisit_aud    |    1122385920 |            0 |           0 |             0 | 1070 MB    | 196 MB       | 1266 MB
+ public       | clinical_data       |       2703360 |        24576 |        8192 |             0 | 1146 MB    | 560 kB       | 1147 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_leghosp
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim            |      56172544 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 110 MB
+ public       | office_aud          |      80994304 |        40960 |        8192 |             0 | 77 MB      | 8440 kB      | 86 MB
+ bi           | questionnaire_dfact |      18784256 |        24576 |        8192 |             0 | 18 MB      | 56 MB        | 74 MB
+ pg_catalog   | pg_statistic        |      35733504 |        32768 |        8192 |             0 | 37 MB      | 2280 kB      | 39 MB
+ public       | claim_prebill       |      32169984 |        24576 |        8192 |             0 | 34 MB      | 624 kB       | 34 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_lifesong
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | date_dim     |      56033280 |        32768 |        8192 |             0 | 53 MB      | 54 MB        | 108 MB
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ etl          | diagmap      |      16179200 |        24576 |        8192 |             0 | 15 MB      | 2088 kB      | 18 MB
+ pg_catalog   | pg_class     |       8577024 |        24576 |        8192 |             0 | 8408 kB    | 5160 kB      | 13 MB
+ pg_catalog   | pg_attribute |       6881280 |        24576 |        8192 |             0 | 6752 kB    | 4592 kB      | 11 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_lihue
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      55246848 |        32768 |        8192 |             0 | 53 MB      | 170 MB       | 223 MB
+ public       | clinical_data       |        548864 |        24576 |        8192 |             0 | 126 MB     | 112 kB       | 126 MB
+ bi           | date_dim            |      56074240 |        32768 |        8192 |             0 | 54 MB      | 55 MB        | 108 MB
+ bi           | response_fact       |      40615936 |        32768 |        8192 |             0 | 39 MB      | 53 MB        | 91 MB
+ bi           | patientvisit_dfact  |      34938880 |        32768 |        8192 |             0 | 33 MB      | 48 MB        | 81 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_maui
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      90210304 |        40960 |        8192 |             0 | 86 MB      | 277 MB       | 363 MB
+ bi           | response_fact       |     115671040 |        49152 |        8192 |             0 | 111 MB     | 146 MB       | 257 MB
+ bi           | claimdetail_fact    |      96993280 |        40960 |        8192 |             0 | 93 MB      | 128 MB       | 221 MB
+ bi           | patientvisit_dfact  |      91512832 |        40960 |        8192 |             0 | 87 MB      | 123 MB       | 210 MB
+ public       | patientvisit_aud    |     163209216 |        57344 |           0 |             0 | 156 MB     | 29 MB        | 184 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_moss
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud   |    2551848960 |       647168 |           0 |             0 | 2434 MB    | 436 MB       | 2870 MB
+ bi           | patientvisit_dfact |     418144256 |       122880 |        8192 |             0 | 399 MB     | 568 MB       | 967 MB
+ public       | revinfo            |     651583488 |       180224 |       16384 |             0 | 622 MB     | 315 MB       | 937 MB
+ public       | patientvisit       |     238272512 |        81920 |        8192 |             0 | 227 MB     | 187 MB       | 414 MB
+ bi           | response_fact      |     108027904 |        49152 |        8192 |             0 | 103 MB     | 149 MB       | 252 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_mountain
+ table_schema |        table_name        | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | patientdayofservice_fact |     275841024 |        90112 |        8192 |             0 | 263 MB     | 374 MB       | 637 MB
+ bi           | questionnaire_dfact      |     116121600 |        49152 |        8192 |             0 | 111 MB     | 348 MB       | 458 MB
+ bi           | claimdetail_fact         |     204832768 |        73728 |        8192 |             0 | 195 MB     | 240 MB       | 436 MB
+ public       | clinical_data            |        180224 |        24576 |        8192 |             0 | 372 MB     | 96 kB        | 373 MB
+ public       | claim_prebill            |     286728192 |        90112 |        8192 |             0 | 311 MB     | 4568 kB      | 316 MB
+(5 rows)
+
+dbhost |, dbname 
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_natchit
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      96559104 |        40960 |        8192 |             0 | 92 MB      | 277 MB       | 369 MB
+ bi           | response_fact       |     101703680 |        49152 |        8192 |             0 | 97 MB      | 138 MB       | 235 MB
+ public       | clinical_data       |        548864 |        24576 |        8192 |             0 | 166 MB     | 96 kB        | 166 MB
+ bi           | patientvisit_dfact  |      54796288 |        32768 |        8192 |             0 | 52 MB      | 81 MB        | 134 MB
+ public       | patientvisit_aud    |     116441088 |            0 |           0 |             0 | 111 MB     | 20 MB        | 131 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_newyork
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_rewrite   |        155648 |        24576 |        8192 |             0 | 8912 kB    | 48 kB        | 8960 kB
+ pg_catalog   | pg_attribute |       4775936 |        24576 |        8192 |             0 | 4696 kB    | 1888 kB      | 6584 kB
+ pg_catalog   | pg_depend    |       1884160 |        24576 |        8192 |             0 | 1872 kB    | 2904 kB      | 4776 kB
+ pg_catalog   | pg_proc      |       1089536 |        24576 |        8192 |             0 | 2688 kB    | 392 kB       | 3080 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_nola
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_rewrite   |        155648 |        24576 |        8192 |             0 | 8896 kB    | 48 kB        | 8944 kB
+ pg_catalog   | pg_attribute |       4718592 |        24576 |        8192 |             0 | 4640 kB    | 1888 kB      | 6528 kB
+ pg_catalog   | pg_depend    |       1851392 |        24576 |        8192 |             0 | 1840 kB    | 2904 kB      | 4744 kB
+ pg_catalog   | pg_proc      |       1073152 |        24576 |        8192 |             0 | 2664 kB    | 392 kB       | 3056 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_northidaho
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | clinical_data       |        442368 |        24576 |        8192 |             0 | 882 MB     | 240 kB       | 882 MB
+ bi           | questionnaire_dfact |     198148096 |        65536 |        8192 |             0 | 189 MB     | 577 MB       | 766 MB
+ bi           | response_fact       |     236609536 |        81920 |        8192 |             0 | 226 MB     | 307 MB       | 534 MB
+ bi           | patientvisit_dfact  |     182165504 |        65536 |        8192 |             0 | 174 MB     | 239 MB       | 413 MB
+ public       | patientinteraction  |      54755328 |        32768 |        8192 |             0 | 52 MB      | 144 MB       | 196 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_orangetx
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud    |     336035840 |            0 |           0 |             0 | 320 MB     | 60 MB        | 381 MB
+ public       | revinfo             |      98607104 |        40960 |        8192 |             0 | 94 MB      | 48 MB        | 142 MB
+ bi           | questionnaire_dfact |      33996800 |        32768 |        8192 |             0 | 32 MB      | 99 MB        | 132 MB
+ public       | clinical_data       |         32768 |        24576 |        8192 |             0 | 115 MB     | 32 kB        | 115 MB
+ bi           | response_fact       |      46186496 |        32768 |        8192 |             0 | 44 MB      | 67 MB        | 111 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_prefer
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |     646512640 |       180224 |       16384 |             0 | 617 MB     | 1853 MB      | 2470 MB
+ public       | patientvisit_aud    |    2181210112 |       557056 |           0 |             0 | 2081 MB    | 386 MB       | 2466 MB
+ bi           | response_fact       |     886915072 |       237568 |       16384 |             0 | 849 MB     | 1268 MB      | 2116 MB
+ bi           | claimdetail_fact    |     552460288 |       155648 |       16384 |             0 | 527 MB     | 741 MB       | 1268 MB
+ bi           | patientvisit_dfact  |     501301248 |       147456 |        8192 |             0 | 478 MB     | 721 MB       | 1199 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_prefercare
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | office_aud          |     131645440 |        49152 |        8192 |             0 | 126 MB     | 13 MB        | 138 MB
+ bi           | date_dim            |      56238080 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 111 MB
+ bi           | questionnaire_dfact |      26312704 |        24576 |        8192 |             0 | 25 MB      | 75 MB        | 100 MB
+ bi           | response_fact       |      25640960 |        24576 |        8192 |             0 | 24 MB      | 39 MB        | 63 MB
+ bi           | patientvisit_dfact  |      20611072 |        24576 |        8192 |             0 | 20 MB      | 32 MB        | 52 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_procare
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |     257695744 |        81920 |        8192 |             0 | 246 MB     | 768 MB       | 1014 MB
+ bi           | patientvisit_dfact  |     236806144 |        81920 |        8192 |             0 | 226 MB     | 347 MB       | 573 MB
+ bi           | response_fact       |     207536128 |        73728 |        8192 |             0 | 198 MB     | 299 MB       | 497 MB
+ public       | patientinteraction  |      69083136 |        40960 |        8192 |             0 | 66 MB      | 188 MB       | 254 MB
+ public       | clinical_data       |       1114112 |        24576 |        8192 |             0 | 239 MB     | 200 kB       | 240 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_puertot
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_rewrite   |        147456 |        24576 |        8192 |             0 | 8744 kB    | 48 kB        | 8792 kB
+ pg_catalog   | pg_attribute |       4759552 |        24576 |        8192 |             0 | 4680 kB    | 1912 kB      | 6592 kB
+ pg_catalog   | pg_depend    |       1875968 |        24576 |        8192 |             0 | 1864 kB    | 2944 kB      | 4808 kB
+ pg_catalog   | pg_proc      |       1015808 |        24576 |        8192 |             0 | 2568 kB    | 384 kB       | 2952 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_qualityhos
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | questionnaire_dfact |      56311808 |        32768 |        8192 |             0 | 54 MB      | 161 MB       | 215 MB
+ bi           | claimdetail_fact    |      81739776 |        40960 |        8192 |             0 | 78 MB      | 95 MB        | 173 MB
+ bi           | patientvisit_dfact  |      57049088 |        32768 |        8192 |             0 | 54 MB      | 89 MB        | 144 MB
+ bi           | response_fact       |      55074816 |        32768 |        8192 |             0 | 53 MB      | 83 MB        | 135 MB
+ bi           | date_dim            |      56229888 |        32768 |        8192 |             0 | 54 MB      | 57 MB        | 110 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_richland
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |     192708608 |            0 |           0 |             0 | 184 MB     | 33 MB        | 217 MB
+ public       | patientinteraction_aud |     100081664 |        49152 |        8192 |             0 | 96 MB      | 30 MB        | 126 MB
+ public       | patientinteraction     |      25485312 |        24576 |        8192 |             0 | 24 MB      | 83 MB        | 107 MB
+ public       | revinfo                |      64471040 |        32768 |        8192 |             0 | 62 MB      | 31 MB        | 93 MB
+ bi           | response_fact          |      24715264 |        24576 |        8192 |             0 | 24 MB      | 34 MB        | 57 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_rockbridge
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | clinical_data      |         57344 |        24576 |        8192 |             0 | 75 MB      | 64 kB        | 75 MB
+ bi           | response_fact      |      22011904 |        24576 |        8192 |             0 | 21 MB      | 29 MB        | 50 MB
+ bi           | patientvisit_dfact |      19341312 |        24576 |        8192 |             0 | 18 MB      | 30 MB        | 48 MB
+ public       | revinfo            |      25264128 |        24576 |        8192 |             0 | 24 MB      | 12 MB        | 36 MB
+ pg_catalog   | pg_shdepend        |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_ruth
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | clinical_data      |       1228800 |        24576 |        8192 |             0 | 968 MB     | 288 kB       | 968 MB
+ public       | patientinteraction |     207839232 |        73728 |        8192 |             0 | 198 MB     | 694 MB       | 892 MB
+ public       | patientvisit_aud   |     748503040 |       204800 |           0 |             0 | 714 MB     | 130 MB       | 844 MB
+ bi           | response_fact      |     341385216 |       106496 |        8192 |             0 | 326 MB     | 435 MB       | 761 MB
+ bi           | patientvisit_dfact |     308944896 |        98304 |        8192 |             0 | 295 MB     | 424 MB       | 719 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_sandbx3
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_statistic |      50438144 |        32768 |        8192 |             0 | 48 MB      | 5192 kB      | 53 MB
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ public       | office_aud   |       8773632 |        24576 |        8192 |             0 | 8608 kB    | 1344 kB      | 9952 kB
+ pg_catalog   | pg_attribute |       2998272 |        24576 |        8192 |             0 | 2960 kB    | 1256 kB      | 4216 kB
+ public       | revinfo      |       2105344 |        24576 |        8192 |             0 | 2088 kB    | 1048 kB      | 3136 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_sangabriel
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | clinical_data      |         16384 |        24576 |        8192 |             0 | 53 MB      | 32 kB        | 53 MB
+ pg_catalog   | pg_shdepend        |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ bi           | date_dim           |      16056320 |        24576 |        8192 |             0 | 15 MB      | 9856 kB      | 25 MB
+ bi           | patientvisit_dfact |       9461760 |        24576 |        8192 |             0 | 9280 kB    | 15 MB        | 24 MB
+ bi           | response_fact      |      10518528 |        24576 |        8192 |             0 | 10 MB      | 13 MB        | 23 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_servant
+ table_schema |       table_name       | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud       |    1987108864 |            0 |           0 |             0 | 1895 MB    | 333 MB       | 2228 MB
+ public       | patientinteraction_aud |     924934144 |       245760 |       16384 |             0 | 882 MB     | 289 MB       | 1172 MB
+ public       | revinfo                |     513564672 |       147456 |        8192 |             0 | 490 MB     | 248 MB       | 738 MB
+ bi           | response_fact          |     304406528 |        98304 |        8192 |             0 | 291 MB     | 386 MB       | 676 MB
+ bi           | patientvisit_dfact     |     233750528 |        81920 |        8192 |             0 | 223 MB     | 334 MB       | 557 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_southgrace
+ table_schema |     table_name      | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+---------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | response_fact       |     176619520 |        65536 |        8192 |             0 | 169 MB     | 228 MB       | 396 MB
+ bi           | patientvisit_dfact  |     153468928 |        57344 |        8192 |             0 | 146 MB     | 204 MB       | 350 MB
+ public       | patientvisit_aud    |     165625856 |            0 |           0 |             0 | 158 MB     | 28 MB        | 186 MB
+ public       | patientinteraction  |      52961280 |        32768 |        8192 |             0 | 51 MB      | 122 MB       | 173 MB
+ bi           | questionnaire_dfact |      41246720 |        32768 |        8192 |             0 | 39 MB      | 110 MB       | 150 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_srch
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud   |     621527040 |            0 |           0 |             0 | 593 MB     | 107 MB       | 700 MB
+ bi           | response_fact      |     207462400 |        73728 |        8192 |             0 | 198 MB     | 268 MB       | 466 MB
+ bi           | patientvisit_dfact |     140541952 |        57344 |        8192 |             0 | 134 MB     | 200 MB       | 334 MB
+ public       | revinfo            |     174678016 |        65536 |        8192 |             0 | 167 MB     | 84 MB        | 251 MB
+ public       | patientinteraction |      52158464 |        32768 |        8192 |             0 | 50 MB      | 123 MB       | 173 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_stjacob
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud   |      41172992 |            0 |           0 |             0 | 39 MB      | 7264 kB      | 46 MB
+ bi           | order_fact         |      13565952 |        24576 |        8192 |             0 | 13 MB      | 26 MB        | 39 MB
+ pg_catalog   | pg_shdepend        |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ bi           | patientvisit_dfact |      12533760 |        24576 |        8192 |             0 | 12 MB      | 20 MB        | 32 MB
+ bi           | date_dim           |      16031744 |        24576 |        8192 |             0 | 15 MB      | 13 MB        | 28 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_summitview
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud   |     106553344 |            0 |           0 |             0 | 102 MB     | 19 MB        | 120 MB
+ bi           | patientvisit_dfact |      21086208 |        24576 |        8192 |             0 | 20 MB      | 30 MB        | 50 MB
+ public       | revinfo            |      32612352 |        24576 |        8192 |             0 | 31 MB      | 16 MB        | 47 MB
+ public       | patientinteraction |      10084352 |        24576 |        8192 |             0 | 9888 kB    | 32 MB        | 42 MB
+ bi           | response_fact      |      18292736 |        24576 |        8192 |             0 | 17 MB      | 24 MB        | 42 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_thomaston
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | patientvisit_aud   |      40321024 |            0 |           0 |             0 | 38 MB      | 7168 kB      | 45 MB
+ bi           | response_fact      |      15958016 |        24576 |        8192 |             0 | 15 MB      | 18 MB        | 34 MB
+ pg_catalog   | pg_shdepend        |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ bi           | patientvisit_dfact |      11821056 |        24576 |        8192 |             0 | 11 MB      | 17 MB        | 28 MB
+ bi           | date_dim           |      16056320 |        24576 |        8192 |             0 | 15 MB      | 12 MB        | 28 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_trainpr1
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_attribute |       3457024 |        24576 |        8192 |             0 | 3408 kB    | 1928 kB      | 5336 kB
+ pg_catalog   | pg_rewrite   |        139264 |        24576 |        8192 |             0 | 4968 kB    | 48 kB        | 5016 kB
+ pg_catalog   | pg_depend    |       1449984 |        24576 |        8192 |             0 | 1448 kB    | 2792 kB      | 4240 kB
+ pg_catalog   | pg_proc      |       1105920 |        24576 |        8192 |             0 | 2504 kB    | 392 kB       | 2896 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_trainpr2
+ table_schema |  table_name  | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ pg_catalog   | pg_shdepend  |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ pg_catalog   | pg_attribute |       3416064 |        24576 |        8192 |             0 | 3368 kB    | 1880 kB      | 5248 kB
+ pg_catalog   | pg_rewrite   |        139264 |        24576 |        8192 |             0 | 4968 kB    | 48 kB        | 5016 kB
+ pg_catalog   | pg_depend    |       1441792 |        24576 |        8192 |             0 | 1440 kB    | 2784 kB      | 4224 kB
+ pg_catalog   | pg_proc      |       1064960 |        24576 |        8192 |             0 | 2464 kB    | 392 kB       | 2856 kB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_transition
+ table_schema |        table_name        | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | claimdetail_fact         |      17530880 |        24576 |        8192 |             0 | 17 MB      | 21 MB        | 38 MB
+ pg_catalog   | pg_shdepend              |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ bi           | patientdayofservice_fact |      12877824 |        24576 |        8192 |             0 | 12 MB      | 18 MB        | 30 MB
+ bi           | date_dim                 |      16072704 |        24576 |        8192 |             0 | 15 MB      | 9856 kB      | 25 MB
+ public       | claimbatch_gen           |        212992 |        24576 |        8192 |             0 | 20 MB      | 40 kB        | 20 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_treasureco
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ public       | clinical_data      |       3186688 |        24576 |        8192 |             0 | 3758 MB    | 1144 kB      | 3759 MB
+ bi           | response_fact      |     737902592 |       204800 |       16384 |             0 | 708 MB     | 944 MB       | 1651 MB
+ bi           | patientvisit_dfact |     540418048 |       155648 |        8192 |             0 | 516 MB     | 679 MB       | 1194 MB
+ public       | patient_aud        |     730660864 |       196608 |           0 |             0 | 697 MB     | 103 MB       | 800 MB
+ public       | patientvisit_aud   |     655572992 |       180224 |           0 |             0 | 625 MB     | 109 MB       | 734 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_wray
+ table_schema |     table_name     | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | response_fact      |      17170432 |        24576 |        8192 |             0 | 16 MB      | 20 MB        | 37 MB
+ pg_catalog   | pg_shdepend        |      18194432 |        24576 |        8192 |             0 | 17 MB      | 16 MB        | 34 MB
+ public       | patientvisit_aud   |      27787264 |            0 |           0 |             0 | 27 MB      | 5112 kB      | 32 MB
+ bi           | patientvisit_dfact |      12640256 |        24576 |        8192 |             0 | 12 MB      | 18 MB        | 30 MB
+ bi           | date_dim           |      16031744 |        24576 |        8192 |             0 | 15 MB      | 13 MB        | 28 MB
+(5 rows)
+
+dbhost hbdb-higgs-pool.mumms.com, dbname hb_yorkcty
+ table_schema |        table_name        | relation_main | relation_fsm | relation_vm | relation_init | table_size | indexes_size | total_size 
+--------------+--------------------------+---------------+--------------+-------------+---------------+------------+--------------+------------
+ bi           | claimdetail_fact         |     147554304 |        57344 |        8192 |             0 | 141 MB     | 174 MB       | 315 MB
+ bi           | patientvisit_dfact       |      69615616 |        40960 |        8192 |             0 | 66 MB      | 127 MB       | 194 MB
+ pg_catalog   | pg_statistic             |     175628288 |        65536 |        8192 |             0 | 169 MB     | 9384 kB      | 178 MB
+ bi           | patientdayofservice_fact |      64561152 |        32768 |        8192 |             0 | 62 MB      | 88 MB        | 150 MB
+ public       | patientinteraction       |      47800320 |        32768 |        8192 |             0 | 46 MB      | 97 MB        | 143 MB
+(5 rows)
+
+Done

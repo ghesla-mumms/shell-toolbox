@@ -1,0 +1,12 @@
+drop schema bi cascade; create schema bi;
+drop schema etl cascade; create schema etl;
+drop schema etl_staging cascade; create schema etl_staging;
+drop schema facesheets cascade; create schema facesheets;
+drop schema hetsservice cascade; create schema hetsservice;
+drop schema idgteams cascade; create schema idgteams;
+drop schema med cascade; create schema med;
+drop schema observation cascade; create schema observation;
+drop schema public cascade; create schema public;
+drop schema reports cascade ; create schema reports;
+drop schema source_etl cascade; create schema source_etl;
+drop schema target_etl cascade; create schema target_etl;

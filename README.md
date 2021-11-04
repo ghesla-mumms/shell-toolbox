@@ -29,7 +29,7 @@ Used to test keycloak-secured endpoints in api servers.
 
 For ease of use, this is symlinked to `/usr/local/bin/kcCurl` for global access
 ```
-ln -hsf /Users/g.hesla/bin/kcCurl.sh /usr/local/bin/kcCurl
+ln -hsf `pwd`/kcCurl.sh /usr/local/bin/kcCurl
 ```
 
 ## oc-switch.sh
@@ -39,7 +39,7 @@ Used to switch easily between clusters in OpenShift
 
 For ease of use, this is symlinked to `/usr/local/bin/oc-switch` for global access
 ```
-ln -hsf /Users/g.hesla/bin/oc-switch.sh /usr/local/bin/oc-switch
+ln -hsf `pwd`/oc-switch.sh /usr/local/bin/oc-switch
 ```
 
 ## oc-wlc.sh
@@ -47,15 +47,30 @@ ln -hsf /Users/g.hesla/bin/oc-switch.sh /usr/local/bin/oc-switch
 
 Finds workloads that are having problems in OpenShift.
 
+For ease of use, this is symlinked to `/usr/local/bin/oc-wlc.sh` for global access
+```
+ln -hsf `pwd`/oc-wlc.sh /usr/local/bin/oc-wlc
+```
+
 ## pimmer
 *~Greg Hesla*
 
 Alias to perform a git merge from a branch with the pattern stories/{xxx}/story
 
+For ease of use, this is symlinked to `/usr/local/bin/pimmer` for global access
+```
+ln -hsf `pwd`/pimmer /usr/local/bin/pimmer
+```
+
 ## query
 *~Greg Hesla*
 
 Convenience script for querying mumms databases.
+
+For ease of use, this is symlinked to `/usr/local/bin/query` for global access
+```
+ln -hsf `pwd`/query /usr/local/bin/query
+```
 
 ## QueryTenants.sh
 *~Greg Hesla*
@@ -64,5 +79,5 @@ Run a sql query against all tenant databases.
 
 For ease of use, this is symlinked to `/usr/local/bin/queryTenants` for global access
 ```
-ln -hsf /Users/g.hesla/bin/QueryTenants.sh /usr/local/bin/queryTenants
+ln -hsf `pwd`/QueryTenants.sh /usr/local/bin/queryTenants
 ```
