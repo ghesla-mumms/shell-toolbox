@@ -55,9 +55,12 @@ getToken() {
   local KEYCLOAK=
   local REALM=
 
-  if [[ -z "$USER" ]] || [[ -z "$PASS" ]]; then
+  if [[ -z "$USER" ]]; then
     read -p "Username: " USER
-    read -s -p "Password" PASS
+  fi
+
+  if [[ -z "$PASS" ]]; then
+    read -s -p "Password for $USER: " PASS
   fi
 
   if [ "$ENV" == "qa" ]; then
