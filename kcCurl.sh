@@ -9,6 +9,11 @@
 # token for that user. Then, it will make a curl call to the endpoint provided, passing
 # the keycloak token as a header.
 #
+# You can shortcut the need to pass the username and password to this script by
+# setting the KC_USER and KC_USERPASS environment variables.
+#  $ export KC_USER="user@mumms.com"
+#  $ export KC_USERPASS="userpasswordvalue"
+#
 #####
 function usage() {
   printf "usage: $0 [options] \n\
@@ -36,13 +41,9 @@ function usage() {
       -ctx                  --  Include a xml content-type header\n\
       -ctt                  --  Include a text/plain content-type header\n\
       -ctj                  --  Include an application/json content-type header\n\
-      -hdr1                 --  Add header to request\n\
-      -hdr2                 --  Add header to request\n\
-      -hdr3                 --  Add header to request\n\
-      -hdr4                 --  Add header to request\n\
-      -hdr5                 --  Add header to request\n\
+      -hdr                  --  Add header to request\n\
       -v                    --  Show script progress\n\
-      --verbose             --  Show verbose response\n\
+      --verbose             --  Show verbose curl response\n\
       -?,--help             --  This message\n\n"
   exit 1;
 }
@@ -89,7 +90,11 @@ getToken() {
             # $KEYCLOAK$TOKEN_ENDPOINT | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])"`
             # $KEYCLOAK$TOKEN_ENDPOINT | jq -r .access_token `
 
-  echo "$TOKEN"
+  if [[ -z "$TOKEN" ]]; then
+    echo "***ERROR***"
+  else
+    echo "$TOKEN"
+  fi
 }
 
 HOSTURL=
@@ -109,11 +114,7 @@ ACCJSON_HEADER=
 ACCXML_HEADER=
 TOKEN=
 VERBOSE_RESPONSE=
-REQUEST_HEADER1=
-REQUEST_HEADER2=
-REQUEST_HEADER3=
-REQUEST_HEADER4=
-REQUEST_HEADER5=
+REQUEST_HEADERS=""
 
 verbose=false
 
@@ -136,11 +137,7 @@ while [ "$#" -gt 0 ]; do
     -ctx) CTX_HEADER="Content-Type: application/xml"; shift; continue;;
     -ctt) CTT_HEADER="Content-Type: text/plain"; shift; continue;;
     -ctj) CTT_HEADER="Content-Type: application/json"; shift; continue;;
-    -hdr1) REQUEST_HEADER1=$2; shift 2; continue;;
-    -hdr2) REQUEST_HEADER2=$2; shift 2; continue;;
-    -hdr3) REQUEST_HEADER3=$2; shift 2; continue;;
-    -hdr4) REQUEST_HEADER4=$2; shift 2; continue;;
-    -hdr5) REQUEST_HEADER5=$2; shift 2; continue;;
+    -hdr) REQUEST_HEADERS="${REQUEST_HEADERS} -H \"$2\""; shift 2; continue;;
     -v) verbose=true; shift; continue;;
     --verbose) VERBOSE_RESPONSE="--verbose"; shift; continue;;
     -?|--help) usage;;
@@ -163,6 +160,12 @@ else
   $verbose && echo "using provided token"
 fi
 
+if [[ "$TOKEN" == "***ERROR***" ]]; then
+  echo ""
+  echo "***ERROR: An error occurred generating the keycloak token. Please verify your username and password."
+  exit 1
+fi
+
 HOST="${HOSTURL}"
 
 if [[ -n "$ENDPOINT" ]]; then
@@ -178,11 +181,7 @@ $verbose && [ -n "${ACCXML_HEADER}" ] && echo "     -H \"${ACCXML_HEADER}\" \\"
 $verbose && [ -n "${CTX_HEADER}" ] && echo "     -H \"${CTX_HEADER}\" \\"
 $verbose && [ -n "${CTT_HEADER}" ] && echo "     -H \"${CTT_HEADER}\" \\"
 $verbose && [ -n "${CTJ_HEADER}" ] && echo "     -H \"${CTJ_HEADER}\" \\"
-$verbose && [ -n "${REQUEST_HEADER1}" ] && echo "  -H \"${REQUEST_HEADER1}\" \\"
-$verbose && [ -n "${REQUEST_HEADER2}" ] && echo "  -H \"${REQUEST_HEADER2}\" \\"
-$verbose && [ -n "${REQUEST_HEADER3}" ] && echo "  -H \"${REQUEST_HEADER3}\" \\"
-$verbose && [ -n "${REQUEST_HEADER4}" ] && echo "  -H \"${REQUEST_HEADER4}\" \\"
-$verbose && [ -n "${REQUEST_HEADER5}" ] && echo "  -H \"${REQUEST_HEADER5}\" \\"
+$verbose && [ -n "${REQUEST_HEADERS}" ] && echo " ${REQUEST_HEADERS} \\"
 $verbose && [ -n "${DATA}" ] && echo "     -d \"${DATA}\" \\"
 $verbose && [ -n "${SHOW_RESPONSE_HEADER}" ] && echo "     -i \\"
 $verbose && [ -n "${VERBOSE_RESPONSE}" ] && echo "     ${VERBOSE_RESPONSE} \\"
@@ -196,11 +195,7 @@ curl -X $CURL_CMD -H "Authorization: Bearer $TOKEN" \
     ${CTX_HEADER:+ -H "$CTX_HEADER"} \
     ${CTT_HEADER:+ -H "$CTT_HEADER"} \
     ${CTJ_HEADER:+ -H "$CTJ_HEADER"} \
-    ${REQUEST_HEADER1:+ -H "$REQUEST_HEADER1"} \
-    ${REQUEST_HEADER2:+ -H "$REQUEST_HEADER2"} \
-    ${REQUEST_HEADER3:+ -H "$REQUEST_HEADER3"} \
-    ${REQUEST_HEADER4:+ -H "$REQUEST_HEADER4"} \
-    ${REQUEST_HEADER5:+ -H "$REQUEST_HEADER5"} \
+    ${REQUEST_HEADERS:+ "$REQUEST_HEADERS"} \
     ${ORIGIN:+ -H "Origin: $ORIGIN"} \
     ${DATA:+ -d $DATA} \
     ${SHOW_RESPONSE_HEADER:+ -i} \
