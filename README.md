@@ -52,32 +52,32 @@ For ease of use, this is symlinked to `/usr/local/bin/oc-wlc.sh` for global acce
 ln -hsf `pwd`/oc-wlc.sh /usr/local/bin/oc-wlc
 ```
 
-## pimmer
+## pimmer.sh
 *~Greg Hesla*
 
 Alias to perform a git merge from a branch with the pattern stories/{xxx}/story
 
 For ease of use, this is symlinked to `/usr/local/bin/pimmer` for global access
 ```
-ln -hsf `pwd`/pimmer /usr/local/bin/pimmer
+ln -hsf `pwd`/pimmer.sh /usr/local/bin/pimmer
 ```
 
-## query
+## query.sh
 *~Greg Hesla*
 
 Convenience script for querying mumms databases.
 
 For ease of use, this is symlinked to `/usr/local/bin/query` for global access
 ```
-ln -hsf `pwd`/query /usr/local/bin/query
+ln -hsf `pwd`/query.sh /usr/local/bin/query
 ```
 
-## QueryTenants.sh
+## queryTenants.sh
 *~Greg Hesla*
 
 Run a sql query against all tenant databases.
 
 For ease of use, this is symlinked to `/usr/local/bin/queryTenants` for global access
 ```
-ln -hsf `pwd`/QueryTenants.sh /usr/local/bin/queryTenants
+ln -hsf `pwd`/queryTenants.sh /usr/local/bin/queryTenants
 ```
