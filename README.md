@@ -54,6 +54,8 @@ ln -hsf `pwd`/oc-wlc.sh /usr/local/bin/oc-wlc
 
 ## pimmer.sh
 *~Greg Hesla*
+### *deprecated*
+*This has been deprecated in favor of defining a function in .bashrc that accomplishes the same thing*
 
 Alias to perform a git merge from a branch with the pattern stories/{xxx}/story
 

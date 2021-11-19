@@ -24,7 +24,7 @@ function usage() {
       gca-prod\n\
       sched-prod\n\
       sched-local\n\
-      refqa\n\n
+      refqa\n\
       refprod\n\n";
   exit 1;
 }
