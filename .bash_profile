@@ -1,17 +1,17 @@
 #####
 # When invoked as an interactive login shell, Bash executes commands found in
 #   /etc/profile file
-# then, executes the commands found in the first of the following files that exist... 
+# then, executes the commands found in the first of the following files that exist...
 #   ~/.bash_profile
-#   ~/.bash_login 
+#   ~/.bash_login
 #   ~/.profile files
-# 
+#
 # When Bash is invoked as an interactive non-login shell, it reads and executes commands from ~/.bashrc, if that file exists, and it is readable.
 #
-# .bash_profile should contain 
+# .bash_profile should contain
 #   - environment variable settings
 #   - a bit to run the .bashrc file if it exists
-# .bashrc should contain 
+# .bashrc should contain
 #   - alias and function definitions
 #   - custom prompt
 #   - custom history settings
