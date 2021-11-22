@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#####
+# TODO
+#  -
+#####
 
 function usage() {
   if [[ -n "$1" ]]; then
@@ -51,24 +55,30 @@ while [ "$#" -gt 0 ]; do
   shift
 done
 
-if [[ -z "$USERNAME" ]]; then
-  usage "The vendor username (USERNAME) must be provided."
-fi
-if [[ -z "$PASSWORD" ]]; then
-  usage "The password for the vendor username (PASSWORD) must be provided."
-fi
-if [[ -z "$PRACTICE_USER" ]]; then
-  usage "The practice username (PRACTICE_USER) must be provided."
-fi
-if [[ -z "$BIN" ]]; then
-  usage "The PIM bin (BIN) value must be provided."
-fi
-if [[ -z "$DBHOST" ]]; then
-  usage "The database hostname (DBHOST) value must be provided."
-fi
-if [[ -z "$DW3HOST" ]]; then
-  usage "The DW3 database hostname (DW3HOST) value must be provided."
-fi
+while [[ -z "$USERNAME" ]]
+do
+  read -p "Vendor Username (USERNAME): " USERNAME
+done
+while [[ -z "$PASSWORD" ]]
+do
+  read -p "Vendor Password (PASSWORD): " PASSWORD
+done
+while [[ -z "$PRACTICE_USER" ]]
+do
+  read -p "Practice Username (PRACTICE_USER): " PRACTICE_USER
+done
+while [[ -z "$BIN" ]]
+do
+  read -p "PIM bin (BIN): " BIN
+done
+while [[ -z "$DBHOST" ]]
+do
+  read -p "Database Hostname (DBHOST): " DBHOST
+done
+while [[ -z "$DW3HOST" ]]
+do
+  read -p "DW3 Database Hostname (DW3HOST): " DW3HOST
+done
 
 echo ""
 echo "Configuring DrFirst for tenant $BIN in the $DBHOST database using USERNAME: $USERNAME, PASSWORD: $PASSWORD, PRACTICE_USER: $PRACTICE_USER, REGION: $REGION"
@@ -99,13 +109,19 @@ if [[ -n "$CHARTMEDS_ID" ]]; then
   psql -h $DBHOST -U hummingbird -d $DBNAME -c "select * from med.site_config where thirdparty_id = -100;"
 fi
 
+#####
+# TODO: pull these values into variables and use a loop to construct the full configmap entry
+#####
 echo ""
 echo "Use the following values to populate the configmap values"
 psql -h $DBHOST -U hummingbird -d $DBNAME -c "select h.name, h.bin, s.nickname, s.hbclocation, s.id, s.medsandprescriptions_id from hospice h, office s where s.officetype = 'Site' and not s.deleted;"
 
+#####
+# TODO: use openshift cli commands to directly alter the configmap
+#####
 echo ""
 echo -e "Navigate to \033[0;34mhttps://console.gca-prod4.mumms.com/k8s/ns/dr-first/configmaps/drfirst-tenant-config-prod\033[0m and add the following to the configmap, making changes where apropriate"
-echo "# {hospice_name} in production (drfirst-service-prod.gca-prod.mumms.com)
+echo "      # {hospice_name} in production (drfirst-service-prod.gca-prod.mumms.com)
       - name: $BIN
         locations:
         - name: {nickname}
@@ -132,6 +148,10 @@ echo "# {hospice_name} in production (drfirst-service-prod.gca-prod.mumms.com)
 echo ""
 read -p "Press enter when the configmap has been updated to continue" CONT
 
+#####
+# TODO: use openshift cli commands to rollout latest deployment
+#    oc rollout latest -n dr-first drfirst-service-prod
+#####
 echo ""
 echo -e "Navigate to \033[0;34mhttps://console.gca-prod4.mumms.com/k8s/ns/dr-first/deploymentconfigs/drfirst-service-prod\033[0m and rollout the drfirst-service-prod deploymentconfig"
 read -p "Press enter when the deploymentconfig has been rolled out to continue" CONT
@@ -154,6 +174,10 @@ $DRY_RUN || echo "Enabling DrFirst for tenant $BIN in the $DBNAME database on $D
 $DRY_RUN || psql -h $DBHOST -U hummingbird -d $DBNAME -c "update office set medsandprescriptions_id = -1 where officetype = 'Site' and not deleted;"
 
 echo ""
+echo "Enabled sites for DrFirst in PIM..."
+psql -h $DBHOST -U hummingbird -d $DBNAME -c "select id, name, nickname, hbclocation, medsandprescriptions_id from office where officetype = 'Site' and not deleted;"
+
+echo ""
 echo -e "Navigate to \033[0;34mhttp://prod-gce-etl-2.mumms.com:8080/org.talend.administrator/\033[0m and restart the 'ClearScripts-Prod' ETL job"
 
 echo ""
@@ -163,7 +187,13 @@ echo ""
 echo "We will now tail the etl log. Ctrl-C to stop once we verify that demographics and diagnoses are flowing for tenant $BIN"
 read -p "Press enter to continue" CONT
 echo ""
-ssh etl2 './tailetl.sh 30'
+REPEAT="y"
+while [[ "$REPEAT" == "y" ]]
+do
+  ssh etl2 './tailetl.sh 30'
+  REPEAT="n"
+  read -p "Would you like to view the log again? (yN) " REPEAT
+done
 
 echo ""
 echo "Last step is to enable DrFirst in C-II. Add the following to the <medications> section in the location.xml for all sites."
