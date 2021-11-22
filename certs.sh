@@ -1,4 +1,5 @@
 echo "TODO: Ignore subject - we only want the intermediate certs"
+echo "TODO: Find a way to search the cacerts to see if we already have the cert"
 exit 1
 
 SERVERNAME=$1

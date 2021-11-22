@@ -5,11 +5,22 @@ These scripts are convenient and useful for day-to-day work. I've created this r
 
 # Sripts:
 
+## certs.sh
+*~Greg Hesla*
+
+Add missing certificates to all java JREs installed on the local computer.
+- This needs a bit of work before it's ready for prime time.
+
 ## cleanHBDev
 *~Greg Hesla*
 
 Cleans out the hummingbird project's compiled stuff that eclipse may refuse to clean up.
 *May no longer be relevant*
+
+## deployDrFirst.sh
+*~Greg Hesla*
+
+This script automates many of the tasks for deploying DrFirst for a given client.
 
 ## devdb
 *~Greg Hesla*
