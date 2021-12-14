@@ -1,6 +1,12 @@
+#####
+# resources
+#  https://stackoverflow.com/questions/21076179/pkix-path-building-failed-and-unable-to-find-valid-certification-path-to-requ
+#  https://magicmonster.com/kb/prg/java/ssl/pkix_path_building_failed/
+#####
+
 echo "TODO: Ignore subject - we only want the intermediate certs"
 echo "TODO: Find a way to search the cacerts to see if we already have the cert"
-exit 1
+# exit 1
 
 SERVERNAME=$1
 CERTDIR="/tmp"
@@ -36,7 +42,7 @@ do
   fi
 done < $CERTDIR/$SERVERNAME.pem.tmp
 
-rm $CERTDIR/$SERVERNAME.pem.tmp
+# rm $CERTDIR/$SERVERNAME.pem.tmp
 
 CERTFILES=$(find $CERTDIR -name "cert-*.pem")
 TRUSTSTORES=$(find /Library/Java -name cacerts)
@@ -54,6 +60,7 @@ for CERTFILE in ${CERTFILES}; do
       echo "Already present."
     else
       echo "Not present, adding..."
+      # sudo keytool -import -trustcacerts -noprompt -alias r3 -storepass changeit -keystore /Library/Java/JavaVirtualMachines/jdk1.7.0_80.jdk/Contents/Home/jre/lib/security/cacerts -file
       # sudo keytool -import -trustcacerts -noprompt -alias ${CERTALIAS} -storepass changeit -keystore ${TRUSTSTORE} -file $CERTFILE
     fi
   done
