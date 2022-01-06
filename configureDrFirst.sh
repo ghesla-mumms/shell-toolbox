@@ -24,7 +24,7 @@ function usage() {
     CHARTMEDS_ID - If provided, will set up tenant for ChartMeds
     DRY_RUN - Do (false) | do not [true] actually make database changes
 
-    Example: BIN=abcde USERNAME=vendorab123 PASSWORD=\"abc123\" PRACTICE_USER=ab123 $0"
+    Example: BIN=abcde USERNAME=vendorab123 PASSWORD=\"abc123\" PRACTICE_USER=ab123 ./${0}"
     exit 1
 }
 
