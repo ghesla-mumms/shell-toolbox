@@ -17,10 +17,11 @@ Add missing certificates to all java JREs installed on the local computer.
 Cleans out the hummingbird project's compiled stuff that eclipse may refuse to clean up.
 *May no longer be relevant*
 
-## deployDrFirst.sh
+## configureDrFirst.sh
 *~Greg Hesla*
 
 This script automates many of the tasks for deploying DrFirst for a given client.
+`BIN=abcde USERNAME=vendorab123 PASSWORD="abc123" PRACTICE_USER=ab123 ./configureDrFirst.sh`
 
 ## devdb
 *~Greg Hesla*
