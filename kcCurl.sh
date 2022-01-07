@@ -1,4 +1,9 @@
 #!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# For debugging, uncomment the next line
+# set -x
 
 #####
 # testKcCurl.sh
@@ -56,149 +61,123 @@ getToken() {
   local KEYCLOAK=
   local REALM=
 
-  if [[ -z "$USER" ]]; then
+  if [[ -z "${USER}" ]]; then
     read -p "Username: " USER
   fi
 
-  if [[ -z "$PASS" ]]; then
-    read -s -p "Password for $USER: " PASS
+  if [[ -z "${PASS}" ]]; then
+    read -s -p "Password for ${USER}: " PASS
   fi
 
-  if [ "$ENV" == "qa" ]; then
+  if [ "${ENV}" == "qa" ]; then
     local KEYCLOAK="https://keycloak-keycloak-dev-ha.gca-dev.mumms.com/auth"
     local REALM=hbqa04
-  elif [ "$ENV" == "demo" ]; then
+  elif [ "${ENV}" == "demo" ]; then
     local KEYCLOAK="https://keycloak-keycloak-dev-ha.gca-dev.mumms.com/auth"
     local REALM=hbdemo04
-  elif [ "$ENV" == "stage" ]; then
+  elif [ "${ENV}" == "stage" ]; then
     local KEYCLOAK="https://keycloak.gca-prod.mumms.com/auth"
     local REALM=hbstage04
-  elif [ "$ENV" == "prod" ]; then
+  elif [ "${ENV}" == "prod" ]; then
     local KEYCLOAK="https://keycloak.gca-prod.mumms.com/auth"
     local REALM=hbprod
   fi
 
-  local TOKEN_ENDPOINT=/realms/$REALM/protocol/openid-connect/token
-  local USERID_ENDPOINT="/admin/realms/$REALM/users"
-  local KEYCLOAK_URI=$KEYCLOAK$TOKEN_ENDPOINT
+  local TOKEN_ENDPOINT=/realms/${REALM}/protocol/openid-connect/token
+  local USERID_ENDPOINT="/admin/realms/${REALM}/users"
   local CLIENT=$CLIENTID
-  TOKEN=`curl -s -d "client_id=$CLIENT" \
+  TOKEN=`curl -s -d "client_id=${CLIENT}" \
               -d "grant_type=password" \
-              --data-urlencode "username=$USER" \
-              --data-urlencode "password=$PASS" \
-            $KEYCLOAK$TOKEN_ENDPOINT | python2 -c "import sys, json; print json.load(sys.stdin)['access_token']"`
+              --data-urlencode "username=${USER}" \
+              --data-urlencode "password=${PASS}" \
+            ${KEYCLOAK}${TOKEN_ENDPOINT} | python2 -c "import sys, json; print json.load(sys.stdin)['access_token']"`
             # $KEYCLOAK$TOKEN_ENDPOINT | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])"`
             # $KEYCLOAK$TOKEN_ENDPOINT | jq -r .access_token `
 
-  if [[ -z "$TOKEN" ]]; then
+  if [[ -z "${TOKEN}" ]]; then
     echo "***ERROR***"
   else
-    echo "$TOKEN"
+    echo "${TOKEN}"
   fi
 }
 
-HOSTURL=
-ENDPOINT=
 TGT_ENV="qa"
 KC_USER=${KC_USER:-}
 KC_USERPASS=${KC_USERPASS:-}
 KC_CLIENT=pim-login
-ORIGIN=
-CURL_CMD="GET"
-DATA=
-SHOW_RESPONSE_HEADER=
-CTX_HEADER=
-CTT_HEADER=
-CTJ_HEADER=
-ACCJSON_HEADER=
-ACCXML_HEADER=
 TOKEN=
-VERBOSE_RESPONSE=
-REQUEST_HEADERS=""
+
+HOSTURL=
+ENDPOINT=
+CURL_CMD="GET"
+
+CURL_PARMS=()
 
 verbose=false
 
 while [ "$#" -gt 0 ]; do
   case $1 in
-    -h|--host) HOSTURL=$2; shift 2; continue;;
-    -e|--endpoint) ENDPOINT=$2; shift 2; continue;;
     -env|--environment) TGT_ENV=$2; shift 2; continue;;
     -u|--user) KC_USER=$2; shift 2; continue;;
     -pw|--password) KC_USERPASS=$2; shift 2; continue;;
     -cl|--clientid) KC_CLIENT=$2; shift 2; continue;;
     -t|--token) TOKEN=$2; shift 2; continue;;
-    -j|--json) ACCJSON_HEADER="Accept: application/json"; shift; continue;;
-    -x|--xml) ACCXML_HEADER="Accept: application/xml"; shift; continue;;
-    -o|--origin) ORIGIN=$2; shift 2; continue;;
+    -h|--host) HOSTURL=$2; shift 2; continue;;
+    -e|--endpoint) ENDPOINT=$2; shift 2; continue;;
     -X|--cmd) CURL_CMD=$2; shift 2; continue;;
-    -d|--data) DATA=$2; shift 2; continue;;
-    -df|--datafile) DATA="@${2}"; shift 2; continue;;
-    -i) SHOW_RESPONSE_HEADER=true; shift; continue;;
-    -ctx) CTX_HEADER="Content-Type: application/xml"; shift; continue;;
-    -ctt) CTT_HEADER="Content-Type: text/plain"; shift; continue;;
-    -ctj) CTT_HEADER="Content-Type: application/json"; shift; continue;;
-    -hdr) REQUEST_HEADERS="${REQUEST_HEADERS} -H \"$2\""; shift 2; continue;;
+    -j|--json) CURL_PARMS+=("-H" "Accept: application/json"); shift; continue;;
+    -x|--xml) CURL_PARMS+=("-H" "Accept: application/xml"); shift; continue;;
+    -o|--origin) CURL_PARMS+=("-H" "Origin: $2"); shift 2; continue;;
+    -d|--data) CURL_PARMS+=("-d" "$2"); shift 2; continue;;
+    -df|--datafile) CURL_PARMS+=("-d" "@$2"); shift 2; continue;;
+    -i) CURL_PARMS+=("-i"); shift; continue;;
+    -ctx) CURL_PARMS+=("-H" "Content-Type: application/xml"); shift; continue;;
+    -ctt) CURL_PARMS+=("-H" "Content-Type: text/plain"); shift; continue;;
+    -ctj) CURL_PARMS+=("-H" "Content-Type: application/json"); shift; continue;;
+    -hdr) CURL_PARMS+=("-H" "$2"); shift 2; continue;;
+    --verbose) CURL_PARMS+=("--verbose"); shift; continue;;
     -v) verbose=true; shift; continue;;
-    --verbose) VERBOSE_RESPONSE="--verbose"; shift; continue;;
     -?|--help) usage;;
     *)
   esac
   shift
 done
 
-if [[ -z "$HOSTURL" ]]; then
+if [[ -z "${HOSTURL}" ]]; then
   echo "The host url must be provided"
   usage
 fi
 
-if [[ -z "$TOKEN" ]]; then
-  $verbose && echo ""
-  $verbose && echo "generating keycloak token"
-  TOKEN=$( getToken  "$TGT_ENV" "$KC_USER" "$KC_USERPASS" "$KC_CLIENT")
+if [[ -z "${TOKEN}" ]]; then
+  ${verbose} && echo ""
+  ${verbose} && echo "generating keycloak token"
+  TOKEN=$( getToken  "${TGT_ENV}" "${KC_USER}" "${KC_USERPASS}" "${KC_CLIENT}")
 else
-  $verbose && echo ""
-  $verbose && echo "using provided token"
+  ${verbose} && echo ""
+  ${verbose} && echo "using provided token"
 fi
 
-if [[ "$TOKEN" == "***ERROR***" ]]; then
+if [[ "${TOKEN}" == "***ERROR***" ]]; then
   echo ""
   echo "***ERROR: An error occurred generating the keycloak token. Please verify your username and password."
   exit 1
 fi
 
+CURL_PARMS+=("-H" "Authorization: Bearer ${TOKEN}")
+
 HOST="${HOSTURL}"
 
-if [[ -n "$ENDPOINT" ]]; then
-  HOST="$HOST/$ENDPOINT"
+if [[ -n "${ENDPOINT}" ]]; then
+  HOST="${HOST}/${ENDPOINT}"
 fi
 
-$verbose && echo ""
-$verbose && echo "" && echo "Executing curl..."
-$verbose && echo "curl -X ${CURL_CMD} \\"
-$verbose && [ -n "${TOKEN}" ] && echo "     -H \"Authorization: Bearer ${TOKEN}\" \\"
-$verbose && [ -n "${ACCJSON_HEADER}" ] && echo "     -H \"${ACCJSON_HEADER}\" \\"
-$verbose && [ -n "${ACCXML_HEADER}" ] && echo "     -H \"${ACCXML_HEADER}\" \\"
-$verbose && [ -n "${CTX_HEADER}" ] && echo "     -H \"${CTX_HEADER}\" \\"
-$verbose && [ -n "${CTT_HEADER}" ] && echo "     -H \"${CTT_HEADER}\" \\"
-$verbose && [ -n "${CTJ_HEADER}" ] && echo "     -H \"${CTJ_HEADER}\" \\"
-$verbose && [ -n "${REQUEST_HEADERS}" ] && echo " ${REQUEST_HEADERS} \\"
-$verbose && [ -n "${DATA}" ] && echo "     -d \"${DATA}\" \\"
-$verbose && [ -n "${SHOW_RESPONSE_HEADER}" ] && echo "     -i \\"
-$verbose && [ -n "${VERBOSE_RESPONSE}" ] && echo "     ${VERBOSE_RESPONSE} \\"
+CURL_PARMS+=("-X" "${CURL_CMD}")
 
-$verbose && echo "     \"${HOST}\""
-$verbose && echo ""
+# If verbose, show the curl command that is being executed
+${verbose} && set -x
 
-curl -X $CURL_CMD -H "Authorization: Bearer $TOKEN" \
-    ${ACCJSON_HEADER:+ -H "$ACCJSON_HEADER"} \
-    ${ACCXML_HEADER:+ -H "$ACCXML_HEADER"} \
-    ${CTX_HEADER:+ -H "$CTX_HEADER"} \
-    ${CTT_HEADER:+ -H "$CTT_HEADER"} \
-    ${CTJ_HEADER:+ -H "$CTJ_HEADER"} \
-    ${REQUEST_HEADERS:+ "$REQUEST_HEADERS"} \
-    ${ORIGIN:+ -H "Origin: $ORIGIN"} \
-    ${DATA:+ -d $DATA} \
-    ${SHOW_RESPONSE_HEADER:+ -i} \
-    ${VERBOSE_RESPONSE:+ $VERBOSE_RESPONSE} \
-    $HOST
+curl "${CURL_PARMS[@]}" ${HOST}
+
+${verbose} && set +x
+
 echo
