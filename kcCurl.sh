@@ -47,9 +47,12 @@ function usage() {
       -ctt                  --  Include a text/plain content-type header\n\
       -ctj                  --  Include an application/json content-type header\n\
       -hdr                  --  Add header to request\n\
+      -f,--file             --  Output to a file\n\
       -v                    --  Show script progress\n\
       --verbose             --  Show verbose curl response\n\
-      -?,--help             --  This message\n\n"
+      --compressed          --  Add flag to curl call\n\
+      --insecure            --  Add flag to curl call\n\
+      -?,--help             --  This message\n"
   exit 1;
 }
 
@@ -86,7 +89,7 @@ getToken() {
   local TOKEN_ENDPOINT=/realms/${REALM}/protocol/openid-connect/token
   local USERID_ENDPOINT="/admin/realms/${REALM}/users"
   local CLIENT=$CLIENTID
-  TOKEN=`curl -s -d "client_id=${CLIENT}" \
+  TOKEN=`CURL_SSL_BACKEND=SecureTransport curl -s -d "client_id=${CLIENT}" \
               -d "grant_type=password" \
               --data-urlencode "username=${USER}" \
               --data-urlencode "password=${PASS}" \
@@ -135,6 +138,9 @@ while [ "$#" -gt 0 ]; do
     -ctt) CURL_PARMS+=("-H" "Content-Type: text/plain"); shift; continue;;
     -ctj) CURL_PARMS+=("-H" "Content-Type: application/json"); shift; continue;;
     -hdr) CURL_PARMS+=("-H" "$2"); shift 2; continue;;
+    -f|--file) CURL_PARMS+=("-o" "$2"); shift; continue;;
+    --compressed) CURL_PARMS+=("--compressed"); shift; continue;;
+    --insecure) CURL_PARMS+=("--insecure"); shift; continue;;
     --verbose) CURL_PARMS+=("--verbose"); shift; continue;;
     -v) verbose=true; shift; continue;;
     -?|--help) usage;;
@@ -142,6 +148,7 @@ while [ "$#" -gt 0 ]; do
   esac
   shift
 done
+${verbose} && set -x
 
 if [[ -z "${HOSTURL}" ]]; then
   echo "The host url must be provided"
@@ -176,7 +183,7 @@ CURL_PARMS+=("-X" "${CURL_CMD}")
 # If verbose, show the curl command that is being executed
 ${verbose} && set -x
 
-curl "${CURL_PARMS[@]}" ${HOST}
+CURL_SSL_BACKEND=SecureTransport curl "${CURL_PARMS[@]}" ${HOST}
 
 ${verbose} && set +x
 

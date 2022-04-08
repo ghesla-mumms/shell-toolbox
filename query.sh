@@ -52,11 +52,11 @@ else
     dw3) HOST="prod-gce-dw-3.mumms.com"; DATABASE="postgres";;
     cpc) HOST="10.128.15.192"; DATABASE="cpc"; USER="cpc";;
     local) HOST="localhost";;
-    gca-prod) HOST="gca-prod-00-db-2.mumms.com"; DATABASE="postgres";;
-    sched-prod) HOST="gca-prod-00-db-2.mumms.com"; DATABASE="pimcs_prod";;
+    gca-prod) HOST="gca-prod-00-db-4.mumms.com"; DATABASE="postgres";;
+    sched-prod) HOST="gca-prod-00-db-4.mumms.com"; DATABASE="pimcs_prod";;
     sched-local) HOST="localhost"; DATABASE="scheduler"; PORT=5433; USER="scheduler";;
     refqa) HOST="gca-dev-00-db-2.mumms.com"; USER="hb_dev_ref_5_2_rw"; DATABASE="hb_ref_dev_5_2";;
-    refprod) HOST="gca-prod-00-db-2.mumms.com"; USER="hb_refdb_rw"; DATABASE="hb_ref_5_2";;
+    refprod) HOST="gca-prod-00-db-4.mumms.com"; USER="hb_refdb_rw"; DATABASE="hb_ref_5_2";;
   esac
 fi
 

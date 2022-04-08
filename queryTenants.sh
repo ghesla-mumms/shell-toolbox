@@ -47,7 +47,7 @@ function usage() {
       -f,--file             --  File containing query/command to run against tenants\n\
       -v,--verbose          --  Show progress\n\
       --silent              --  Do not show any logging\n\
-      -h,--help             --  This message\n\n"
+      --help                --  This message\n\n"
   exit 1;
 }
 
@@ -65,7 +65,7 @@ while [ "$#" -gt 0 ]; do
     -t|--tuples-only) SHOWHEADERS=" -t "; shift; continue;;
     -v|--verbose) verbose=true; shift; continue;;
     --silent) SHOWLOGGING=false; shift; continue;;
-    -h|--help) usage;;
+    --help) usage;;
     *)
   esac
   shift

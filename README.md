@@ -29,6 +29,15 @@ This script automates many of the tasks for deploying DrFirst for a given client
 Stand up a database container for various environments.
 **No longer relevant, as I just use a locally installed PostgreSQL server that was installed with homebrew**
 
+## git-add-repo.sh
+*~Greg Hesla*
+
+Merge another git repo into the current git repo.
+
+### example
+From the root directory of the project that you want to mergo *into*
+`git-add-repo.sh https://github.com/mummssoftware/git-project.git path/to/directory`
+
 ## gitcheats
 *~Greg Hesla*
 
@@ -45,7 +54,7 @@ ln -hsf `pwd`/kcCurl.sh /usr/local/bin/kcCurl
 ```
 
 ## oc-switch.sh
-*~Brad Durrow.*
+*~Brad Durrow*
 
 Used to switch easily between clusters in OpenShift
 
