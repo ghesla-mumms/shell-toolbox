@@ -85,6 +85,16 @@ For ease of use, this is symlinked to `/usr/local/bin/pimmer` for global access
 ln -hsf `pwd`/pimmer.sh /usr/local/bin/pimmer
 ```
 
+## pim-version.sh
+*~Greg Hesla*
+
+Update the necessary files in PIM with new version number.
+
+For ease of use, this is symlinked to `/usr/local/bin/pim-version` for global access
+```
+ln -hsf `pwd`/pim-version.sh /usr/local/bin/pim-version
+```
+
 ## query.sh
 *~Greg Hesla*
 
