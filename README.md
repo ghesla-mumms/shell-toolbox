@@ -114,3 +114,8 @@ For ease of use, this is symlinked to `/usr/local/bin/queryTenants` for global a
 ```
 ln -hsf `pwd`/queryTenants.sh /usr/local/bin/queryTenants
 ```
+
+## validateEar.sh
+*~Brandon Deriso/Greg Hesla*
+
+Validate that the HBEE.ear is ready to be deployed.
