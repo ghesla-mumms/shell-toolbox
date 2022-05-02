@@ -2,6 +2,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# uncomment the line below for debugging
+# set -x
+
 #####
 # .template.sh
 #
