@@ -93,9 +93,11 @@ getToken() {
               -d "grant_type=password" \
               --data-urlencode "username=${USER}" \
               --data-urlencode "password=${PASS}" \
-            ${KEYCLOAK}${TOKEN_ENDPOINT} | python2 -c "import sys, json; print json.load(sys.stdin)['access_token']"`
-            # $KEYCLOAK$TOKEN_ENDPOINT | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])"`
-            # $KEYCLOAK$TOKEN_ENDPOINT | jq -r .access_token `
+              ${KEYCLOAK}${TOKEN_ENDPOINT} \
+              | jq -r '.access_token'`
+            # ${KEYCLOAK}${TOKEN_ENDPOINT} | python2 -c "import sys, json; print json.load(sys.stdin)['access_token']"`
+            # | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])"`
+            # ${KEYCLOAK}${TOKEN_ENDPOINT}
 
   if [[ -z "${TOKEN}" ]]; then
     echo "***ERROR***"
