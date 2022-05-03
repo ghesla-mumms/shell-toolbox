@@ -95,6 +95,16 @@ For ease of use, this is symlinked to `/usr/local/bin/pim-version` for global ac
 ln -hsf `pwd`/pim-version.sh /usr/local/bin/pim-version
 ```
 
+## postgres-switch.sh
+*~Greg Hesla*
+
+Switch between postgresql versions. This only works for version of postgresql installed via HomeBrew.
+
+For ease of use, this is symlinked to `/usr/local/bin/postgres-switch` for global access
+```
+ln -hsf `pwd`/postgres-switch.sh /usr/local/bin/postgres-switch
+```
+
 ## query.sh
 *~Greg Hesla*
 
