@@ -33,7 +33,7 @@ grep hbgwt/HBDynaWeb/build.xml -e "property name=\"MinorVersion\""
 
 echo -e "\n  Updating PIM version in hbgwt/HBUnitTest/pom.xml:"
 echo "    ...before:"
-grep hbgwt/HBUnitTest/pom.xml -e "<version>2\..*-SNAPSHOT</version>"
-sed -E -i '' "s/<version>(.*)\..*-SNAPSHOT<\/version>/<version>\1.${NEWVER}-SNAPSHOT<\/version>/" hbgwt/HBUnitTest/pom.xml
+grep hbgwt/HBUnitTest/pom.xml -e "<version>.*-SNAPSHOT</version>"
+sed -E -i '' "s/<version>.*-SNAPSHOT<\/version>/<version>${NEWVER}-SNAPSHOT<\/version>/" hbgwt/HBUnitTest/pom.xml
 echo "    ...after:"
-grep hbgwt/HBUnitTest/pom.xml -e "<version>2\..*-SNAPSHOT</version>"
+grep hbgwt/HBUnitTest/pom.xml -e "<version>.*-SNAPSHOT</version>"
