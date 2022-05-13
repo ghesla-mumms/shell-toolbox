@@ -2,7 +2,9 @@
 
 #####
 # TODO
-#  -
+#  - check to see if user is logged in to openshift cli
+#   - If user is logged in, use `oc` commands to rollout openshift deploymentconfig
+#   - If user is not logged in, use current workflow (show url and tell user what to do)
 #####
 
 function usage() {
@@ -45,6 +47,30 @@ DW3HOST=${DW3HOST:-prod-gce-dw-3.mumms.com}
 STEP=1
 NUMSTEPS=10
 
+CONFIGMAPHEADER="      # {hospice_name} in production (drfirst-service-prod.gca-prod.mumms.com)
+      - name: {hospicebin}
+        locations:"
+CONFIGMAPLOC="        - name: {nickname}
+          config:
+            vendorUserName: $USERNAME
+            systemName: $USERNAME
+            vendorPassword: $PASSWORD
+            rcopiaPracticeUserName: $PRACTICE_USER
+            locationId: 1
+            pimBin: $BIN
+            pimSite: {nickname}
+            drFirstUrl: https://update301.drfirst.com/servlet/rcopia.servlet.EngineServlet
+        - name: {hbclocation}
+            config:
+            vendorUserName: $USERNAME
+            systemName: $USERNAME
+            vendorPassword: $PASSWORD
+            rcopiaPracticeUserName: $PRACTICE_USER
+            locationId: 1
+            pimBin: $BIN
+            pimSite: {nickname}
+            drFirstUrl: https://update301.drfirst.com/servlet/rcopia.servlet.EngineServlet"
+
 while [ "$#" -gt 0 ]; do
   case $1 in
     -v|--verbose) VERBOSE=true; shift; continue;;
@@ -80,12 +106,13 @@ do
   read -p "DW3 Database Hostname (DW3HOST): " DW3HOST
 done
 
+DBNAME=hb_${BIN}
+
 echo ""
 echo "Configuring DrFirst for tenant $BIN in the $DBHOST database using USERNAME: $USERNAME, PASSWORD: $PASSWORD, PRACTICE_USER: $PRACTICE_USER, REGION: $REGION"
 echo ""
-read -p "Press Ctrl-C to quit, or enter to continue. To do a dry run which does not make any db changes, run this command with DRY_RUN=true"
-
-DBNAME=hb_${BIN}
+$DRY_RUN && read -p "Press Ctrl-C to quit, or enter to continue. This is a dry run - no changes will be made"
+$DRY_RUN || read -p "Press Ctrl-C to quit, or enter to continue. To do a dry run which does not make any db changes, run this command with DRY_RUN=true"
 
 $DRY_RUN || echo ""
 $DRY_RUN || echo "Configuring site_config for DrFirst..."
@@ -110,40 +137,40 @@ if [[ -n "$CHARTMEDS_ID" ]]; then
 fi
 
 #####
-# TODO: pull these values into variables and use a loop to construct the full configmap entry
-#####
-echo ""
-echo "Use the following values to populate the configmap values"
-psql -h $DBHOST -U hummingbird -d $DBNAME -c "select h.name, h.bin, s.nickname, s.hbclocation, s.id, s.medsandprescriptions_id from hospice h, office s where s.officetype = 'Site' and not s.deleted;"
-
-#####
 # TODO: use openshift cli commands to directly alter the configmap
 #####
 echo ""
-echo -e "Navigate to \033[0;34mhttps://console.gca-prod4.mumms.com/k8s/ns/dr-first/configmaps/drfirst-tenant-config-prod\033[0m and add the following to the configmap, making changes where apropriate"
-echo "      # {hospice_name} in production (drfirst-service-prod.gca-prod.mumms.com)
-      - name: $BIN
-        locations:
-        - name: {nickname}
-          config:
-            vendorUserName: $USERNAME
-            systemName: $USERNAME
-            vendorPassword: $PASSWORD
-            rcopiaPracticeUserName: $PRACTICE_USER
-            locationId: 1
-            pimBin: $BIN
-            pimSite: {nickname}
-            drFirstUrl: https://update301.drfirst.com/servlet/rcopia.servlet.EngineServlet
-        - name: {hbclocation}
-          config:
-            vendorUserName: $USERNAME
-            systemName: $USERNAME
-            vendorPassword: $PASSWORD
-            rcopiaPracticeUserName: $PRACTICE_USER
-            locationId: 1
-            pimBin: $BIN
-            pimSite: {nickname}
-            drFirstUrl: https://update301.drfirst.com/servlet/rcopia.servlet.EngineServlet"
+echo -e "Navigate to \033[0;34mhttps://console.gca-prod4.mumms.com/k8s/ns/dr-first/configmaps/drfirst-tenant-config-prod\033[0m and add the following to the configmap"
+echo "Use the following to validate the configmap values"
+psql -h $DBHOST -U hummingbird -d $DBNAME -c "select h.name, h.bin, s.nickname, s.hbclocation, s.id, s.medsandprescriptions_id from hospice h, office s where s.officetype = 'Site' and not s.deleted and s.medsandprescriptions_id is not null;"
+
+#####
+# looping
+# -t = tuples only - does not print column headers or summary footer
+#####
+SITECONFIGS=$(psql -t -h $DBHOST -U hummingbird -d $DBNAME -c "select h.name, h.bin, s.nickname, s.hbclocation from hospice h, office s where s.officetype = 'Site' and not s.deleted and s.medsandprescriptions_id is not null;")
+
+HEADERPRINTED=false
+
+while read SITECONFIG; do
+  if [[ -z "${SITECONFIG}" ]]; then
+    continue;
+  fi
+  HOSPICENAME=`echo "${SITECONFIG}" | cut -d '|' -f 1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
+  HOSPICEBIN=`echo "${SITECONFIG}" | cut -d '|' -f 2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
+  SITENICKNAME=`echo "${SITECONFIG}" | cut -d '|' -f 3 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
+  SITEHBCLOCATION=`echo "${SITECONFIG}" | cut -d '|' -f 4 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
+
+  ! ${HEADERPRINTED} && echo "${CONFIGMAPHEADER}" | sed -e "s/{hospice_name}/${HOSPICENAME}/g" -e "s/{hospicebin}/${HOSPICEBIN}/g" && HEADERPRINTED=true
+
+  echo "${CONFIGMAPLOC}" | sed -e "s/{nickname}/${SITENICKNAME}/g" \
+    -e "s/{username}/${USERNAME}/g" \
+    -e "s/{vendorpassword}/${PASSWORD}/g" \
+    -e "s/{practiceuser}/${PRACTICE_USER}/g" \
+    -e "s/{bin}/${HOSPICEBIN}/g" \
+    -e "s/{hbclocation}/${SITEHBCLOCATION}/g"
+
+done <<< "$(echo -e "${SITECONFIGS}")";
 
 echo ""
 read -p "Press enter when the configmap has been updated to continue" CONT
