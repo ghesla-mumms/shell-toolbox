@@ -219,6 +219,10 @@ echo ""
 REPEAT="y"
 while [[ "${REPEAT}" == "y" ]]
 do
+  # The tailetl.sh command below runs the following command.
+  # TODO: Fix the command so that it can the command without requiring the tailetl.sh script to exist remotely
+  # sudo find /Jaspersoft/Administrator/executionLogs/task_30/ -name "execution*" -type f -printf "%T+\t%p\n" | sort | awk '{print $2}' | tail -1 | xargs sudo tail -f
+  echo "If the following command fails because tailetl.sh is missing, you may need to copy the tailetl.sh file from this repo to your home directory on the remote server."
   ssh etl2 './tailetl.sh 30'
   REPEAT="n"
   read -p "Would you like to view the log again? (yN) " REPEAT
