@@ -17,7 +17,6 @@ IFS=$'\n\t'
 #####
 
 PROGRAMNAME=${0}
-TGT_VERSION=${1:-}
 
 function usage() {
   local MSG=$1
@@ -32,8 +31,14 @@ function usage() {
   exit;
 }
 
+if [[ $# == 0 ]]; then
+  usage "ERROR: please provide a postgresql version"
+fi
+
+TGT_VERSION=${1:-}
+
 if [ -z ${TGT_VERSION} ]; then
-  usage
+  usage "ERROR: please provide a postgresql version"
 fi
 
 echo "Switching to PostgreSQL version ${TGT_VERSION}"
