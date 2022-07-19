@@ -99,7 +99,7 @@ getToken() {
             # | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])"`
             # ${KEYCLOAK}${TOKEN_ENDPOINT}
 
-  if [[ -z "${TOKEN}" ]]; then
+  if [ -z ${TOKEN} ] || [ "${TOKEN}" = "null" ]; then
     echo "***ERROR***"
   else
     echo "${TOKEN}"
