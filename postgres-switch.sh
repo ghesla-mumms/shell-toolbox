@@ -48,12 +48,16 @@ $(brew services list | fgrep "postgresql@${TGT_VERSION}" >/dev/null 2>&1) || usa
 
 # stop the running version of PostgreSQL
 RUNNINGVER=$(brew services list | egrep "postgresql@.*started" | head -n 1 | awk '{print $1}'| sed 's/postgresql@//')
-echo "  ...stopping postgresql@${RUNNINGVER}"
-brew services stop postgresql@${RUNNINGVER}
-sleep 3
-echo "  ...starting postgresql@${TGT_VERSION}"
-brew services start postgresql@${TGT_VERSION}
-sleep 3
+if [[ "${RUNNINGVER}" == "${TGT_VERSION}" ]]; then
+  echo "  postgresql@${TGT_VERSION} is already running"
+else
+  echo "  ...stopping postgresql@${RUNNINGVER}"
+  brew services stop postgresql@${RUNNINGVER}
+  sleep 3
+  echo "  ...starting postgresql@${TGT_VERSION}"
+  brew services start postgresql@${TGT_VERSION}
+  sleep 3
+fi
 
-echo "Done. Postgresql should be running..."
+echo "Done. Postgresql ${TGT_VERSION} should be running..."
 psql -h localhost -c "select version();"
