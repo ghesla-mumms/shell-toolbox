@@ -20,7 +20,11 @@ PROGRAMNAME=${0}
 
 function usage() {
   local MSG=$1
-  [ -z ${MSG} ] && echo -e "\n${MSG}"
+
+  if [[ -n ${MSG} ]]; then
+    echo -e "\n${MSG}"
+  fi
+
   echo -e "\nUsage: ${PROGRAMNAME} {version}"
   echo "  where {version} is the desired version of postgres to run (must be installed via homebrew). "
   echo ""
@@ -37,7 +41,7 @@ fi
 
 TGT_VERSION=${1:-}
 
-if [ -z ${TGT_VERSION} ]; then
+if [[ -z ${TGT_VERSION} ]]; then
   usage "ERROR: please provide a postgresql version"
 fi
 
