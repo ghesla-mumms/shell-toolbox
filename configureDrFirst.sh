@@ -117,8 +117,8 @@ ${DRY_RUN} || read -p "Press Ctrl-C to quit, or enter to continue. To do a dry r
 
 ${DRY_RUN} || echo ""
 ${DRY_RUN} || echo "Configuring site_config for DrFirst..."
-${DRY_RUN} || psql -h ${DBHOST} -U hummingbird -d ${DBNAME} -c "insert into med.site_config (id, deleted, version, lastupdateuser, lastupdatetime, site_id, api_username, tenant_username, drfirst_systemname, api_password, ui_url, upload_api_url, download_api_url, thirdparty_id)
- (select nextval('med.hibernate_sequence'), false, now(), 'g.hesla', now(), site.id, '${USERNAME}', '${PRACTICE_USER}', '${USERNAME}', '${PASSWORD}', 'https://web3.drfirst.com/sso/portalServices', 'https://engine${REGION}01.drfirst.com/servlet/rcopia.servlet.EngineServlet', 'https://update${REGION}01.drfirst.com/servlet/rcopia.servlet.EngineServlet', -1
+${DRY_RUN} || psql -h ${DBHOST} -U hummingbird -d ${DBNAME} -c "insert into med.site_config (id, deleted, version, lastupdateuser, lastupdatetime, site_id, api_username, tenant_username, drfirst_systemname, api_password, ui_url, upload_api_url, download_api_url, thirdparty_id, patient_systemname)
+ (select nextval('med.hibernate_sequence'), false, now(), 'g.hesla', now(), site.id, '${USERNAME}', '${PRACTICE_USER}', '${USERNAME}', '${PASSWORD}', 'https://web3.drfirst.com/sso/portalServices', 'https://engine${REGION}01.drfirst.com/servlet/rcopia.servlet.EngineServlet', 'https://update${REGION}01.drfirst.com/servlet/rcopia.servlet.EngineServlet', -1, '${USERNAME}'
  from office site where site.officetype = 'Site' and not site.deleted and not exists (select 1 from med.site_config where site_id = site.id and thirdparty_id = -1));"
 
 echo ""
